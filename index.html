@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0a0e14">
+  <meta name="description" content="ผลการวิเคราะห์โครงการเบาหวานระยะสงบและข้อเสนอเชิงนโยบาย อ่านเนื้อหา นำเสนอ และสำรวจข้อมูลจากหลักฐานชุดเดียวกัน">
+  <title>เบาหวานระยะสงบ — จากหลักฐานสู่ระบบบริการ</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='24' fill='%23fb8d94'/%3E%3Cpath d='M13 13h9a11 11 0 010 22h-9z' fill='none' stroke='%230a0e14' stroke-width='4'/%3E%3C/svg%3E">
+  <link rel="preload" href="assets/fonts/Prompt-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/fonts/Prompt-Medium.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="mode-story">
+  <a class="skip" href="#main">ข้ามไปเนื้อหา</a>
+  <header class="topbar">
+    <a class="topbar__brand" href="./">เบาหวานระยะสงบ</a>
+    <div class="topbar__where"><span id="chapter-name"></span><span id="slide-number"></span></div>
+    <nav class="modes" aria-label="รูปแบบการอ่าน"><button data-mode="story" aria-pressed="true">อ่านเนื้อหา</button><button data-mode="present" aria-pressed="false">นำเสนอ</button><button data-mode="explore" aria-pressed="false">สำรวจข้อมูล</button></nav>
+    <div class="topbar__tools"><button id="fullscreen" class="btn btn--ghost only-present">แสดงเต็มจอ</button><button id="about" class="btn btn--icon btn--ghost" aria-label="วิธีใช้งานและสารบัญ">?</button><button id="release" class="release-badge">ฉบับร่าง · เพื่อหารือ</button></div>
+  </header>
+  <main id="main" tabindex="-1"><p class="loading">กำลังโหลดข้อมูล…</p></main>
+  <dialog id="details" class="drawer" aria-labelledby="drawer-title"><div class="drawer__head"><h2 id="drawer-title">ข้อมูลและวิธีอ่าน</h2><button id="close-dialog" class="btn btn--icon btn--ghost" aria-label="ปิด">×</button></div><div id="dialog-content" class="drawer__body"></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div><div id="tooltip" role="tooltip" hidden></div>
+  <noscript><p class="loading">โปรดเปิด JavaScript เพื่อดูสไลด์ กราฟ และตารางข้อมูล</p></noscript>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

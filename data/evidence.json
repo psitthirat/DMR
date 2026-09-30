@@ -1,0 +1,987 @@
+{
+  "tables": {
+    "changes": [
+      {
+        "measure": "HbA1c",
+        "unit": "%",
+        "n_pairs": 861.0,
+        "pre_mean": 7.6329849012775846,
+        "pre_sd": 1.912852256297628,
+        "post_mean": 7.360627177700349,
+        "post_sd": 1.4211751039045781,
+        "mean_change": -0.27235772357723576,
+        "lo95": -0.36772126988800424,
+        "hi95": -0.17699417726646724,
+        "cohen_dz": -0.1910361072804017,
+        "p_ttest": 2.7966749526655544e-08,
+        "p_wilcoxon": 8.529192613931351e-08,
+        "definition": "At 6 months",
+        "tiers": "assumed 846, labelled 15"
+      },
+      {
+        "measure": "Fasting blood sugar",
+        "unit": "mg/dL",
+        "n_pairs": 812.0,
+        "pre_mean": 150.57266009852216,
+        "pre_sd": 49.72980896997413,
+        "post_mean": 138.70197044334975,
+        "post_sd": 35.13328289546379,
+        "mean_change": -11.870689655172415,
+        "lo95": -14.99810304138673,
+        "hi95": -8.7432762689581,
+        "cohen_dz": -0.26146247041894755,
+        "p_ttest": 2.38337070362372e-13,
+        "p_wilcoxon": 3.04595364008796e-14,
+        "definition": "At 6 months",
+        "tiers": "labelled 477, assumed 335"
+      },
+      {
+        "measure": "BMI",
+        "unit": "kg/m²",
+        "n_pairs": 883.0,
+        "pre_mean": 26.381809451275966,
+        "pre_sd": 4.890178174704561,
+        "post_mean": 25.912280759408695,
+        "post_sd": 5.295188705829667,
+        "mean_change": -0.4695286918672743,
+        "lo95": -0.6827263435449918,
+        "hi95": -0.25633104018955677,
+        "cohen_dz": -0.145460084063251,
+        "p_ttest": 1.71923040016353e-05,
+        "p_wilcoxon": 1.1332460775358848e-25,
+        "definition": "At 6 months",
+        "tiers": "assumed 864, labelled 19"
+      },
+      {
+        "measure": "Waist circumference",
+        "unit": "cm",
+        "n_pairs": 874.0,
+        "pre_mean": 88.94360411899312,
+        "pre_sd": 11.206823029456004,
+        "post_mean": 86.68947368421051,
+        "post_sd": 10.98618225950465,
+        "mean_change": -2.2541304347826085,
+        "lo95": -2.798138524376622,
+        "hi95": -1.7101223451885952,
+        "cohen_dz": -0.27508606280368764,
+        "p_ttest": 1.4372453505433336e-15,
+        "p_wilcoxon": 3.7341860312497876e-23,
+        "definition": "At 6 months",
+        "tiers": "assumed 856, labelled 18"
+      },
+      {
+        "measure": "HbA1c",
+        "unit": "%",
+        "n_pairs": 922.0,
+        "pre_mean": 7.578416485900217,
+        "pre_sd": 1.8723487917329442,
+        "post_mean": 7.171691973969631,
+        "post_sd": 1.2370901905457956,
+        "mean_change": -0.40672451193058573,
+        "lo95": -0.515095982079787,
+        "hi95": -0.2983530417813844,
+        "cohen_dz": -0.24257113372241706,
+        "p_ttest": 3.9157460811541194e-13,
+        "p_wilcoxon": 8.304361916631381e-11,
+        "definition": "Last observed",
+        "tiers": "-"
+      },
+      {
+        "measure": "Fasting blood sugar",
+        "unit": "mg/dL",
+        "n_pairs": 858.0,
+        "pre_mean": 149.86130536130537,
+        "pre_sd": 49.63451596846256,
+        "post_mean": 133.86363636363637,
+        "post_sd": 32.52416829504151,
+        "mean_change": -15.997668997668997,
+        "lo95": -19.534917173778428,
+        "hi95": -12.460420821559564,
+        "cohen_dz": -0.30304659385809257,
+        "p_ttest": 3.9664359933038444e-18,
+        "p_wilcoxon": 7.235753713426819e-17,
+        "definition": "Last observed",
+        "tiers": "-"
+      },
+      {
+        "measure": "BMI",
+        "unit": "kg/m²",
+        "n_pairs": 932.0,
+        "pre_mean": 26.40744393291489,
+        "pre_sd": 4.859233262351634,
+        "post_mean": 25.937708058538494,
+        "post_sd": 5.243011473459953,
+        "mean_change": -0.4697358743763984,
+        "lo95": -0.6722620845892194,
+        "hi95": -0.2672096641635774,
+        "cohen_dz": -0.14909998356320295,
+        "p_ttest": 6.022790023436607e-06,
+        "p_wilcoxon": 2.116691657106913e-27,
+        "definition": "Last observed",
+        "tiers": "-"
+      },
+      {
+        "measure": "Waist circumference",
+        "unit": "cm",
+        "n_pairs": 924.0,
+        "pre_mean": 89.1046645021645,
+        "pre_sd": 11.250484231591209,
+        "post_mean": 86.89891774891774,
+        "post_sd": 11.03685439065247,
+        "mean_change": -2.2057467532467534,
+        "lo95": -2.7221957583453267,
+        "hi95": -1.6892977481481801,
+        "cohen_dz": -0.27574660649276106,
+        "p_ttest": 1.927501139260217e-16,
+        "p_wilcoxon": 7.377919446071212e-25,
+        "definition": "Last observed",
+        "tiers": "-"
+      },
+      {
+        "measure": "Body weight",
+        "unit": "kg",
+        "n_pairs": 316.0,
+        "pre_mean": 61.540506329113924,
+        "pre_sd": 11.714435744933771,
+        "post_mean": 59.83006329113924,
+        "post_sd": 12.003156251419103,
+        "mean_change": -1.7104430379746836,
+        "lo95": -2.2398546011870226,
+        "hi95": -1.1810314747623445,
+        "cohen_dz": -0.3575951227758342,
+        "p_ttest": 7.224370915877922e-10,
+        "p_wilcoxon": 2.0228870854118313e-21,
+        "definition": "Last observed",
+        "tiers": "-"
+      },
+      {
+        "measure": "Oral tablets per day",
+        "unit": "n",
+        "n_pairs": 300.0,
+        "pre_mean": 3.0533333333333332,
+        "pre_sd": 2.2890218344855064,
+        "post_mean": 2.408333333333333,
+        "post_sd": 2.3310677406703997,
+        "mean_change": -0.645,
+        "lo95": -0.8129000481432708,
+        "hi95": -0.47709995185672927,
+        "cohen_dz": -0.43647345858501185,
+        "p_ttest": 4.977527842960112e-13,
+        "p_wilcoxon": 4.68087487426163e-13,
+        "definition": "Last observed",
+        "tiers": "-"
+      }
+    ],
+    "outcomes": [
+      {
+        "cohort": "Programme",
+        "outcome": "Drug cessation AT 6 MONTHS (primary)",
+        "n": 718.0,
+        "events": 96.0,
+        "pct": 13.370473537604457,
+        "lo95": 11.07501268295664,
+        "hi95": 16.05580065944259
+      },
+      {
+        "cohort": "Programme",
+        "outcome": "Remission AT 6 MONTHS - upper bound",
+        "n": 790.0,
+        "events": 73.0,
+        "pct": 9.240506329113925,
+        "lo95": 7.413575671175221,
+        "hi95": 11.46191352830472
+      },
+      {
+        "cohort": "Programme",
+        "outcome": "HbA1c < 7% at 6 months",
+        "n": 872.0,
+        "events": 399.0,
+        "pct": 45.75688073394495,
+        "lo95": 42.47603178422273,
+        "hi95": 49.07495050204176
+      },
+      {
+        "cohort": "Programme",
+        "outcome": "HbA1c < 6.5% at 6 months",
+        "n": 872.0,
+        "events": 251.0,
+        "pct": 28.784403669724774,
+        "lo95": 25.87752972682475,
+        "hi95": 31.877381704497683
+      },
+      {
+        "cohort": "Programme",
+        "outcome": "FBS < 126 mg/dL at 6 months",
+        "n": 818.0,
+        "events": 323.0,
+        "pct": 39.48655256723717,
+        "lo95": 36.19334734481773,
+        "hi95": 42.878041892856864
+      },
+      {
+        "cohort": "Programme",
+        "outcome": "- Drug cessation, last observed",
+        "n": 745.0,
+        "events": 120.0,
+        "pct": 16.10738255033557,
+        "lo95": 13.642654344499123,
+        "hi95": 18.919840152627888
+      },
+      {
+        "cohort": "Programme",
+        "outcome": "- Drug cessation, strict/cost-confirmed",
+        "n": 478.0,
+        "events": 94.0,
+        "pct": 19.665271966527197,
+        "lo95": 16.3499517756328,
+        "hi95": 23.464276599448432
+      },
+      {
+        "cohort": "Programme",
+        "outcome": "- Dose reduction, last observed",
+        "n": 289.0,
+        "events": 151.0,
+        "pct": 52.24913494809689,
+        "lo95": 46.49868623769596,
+        "hi95": 57.94057589832552
+      },
+      {
+        "cohort": "Programme",
+        "outcome": "- Remission, last observed",
+        "n": 820.0,
+        "events": 92.0,
+        "pct": 11.219512195121952,
+        "lo95": 9.237644467419551,
+        "hi95": 13.563036028750657
+      },
+      {
+        "cohort": "Programme",
+        "outcome": "- HbA1c < 7%, last observed",
+        "n": 936.0,
+        "events": 483.0,
+        "pct": 51.60256410256411,
+        "lo95": 48.401031085048885,
+        "hi95": 54.79099664669683
+      },
+      {
+        "cohort": "Registry",
+        "outcome": "Drug cessation AT 6 MONTHS (primary)",
+        "n": 0.0,
+        "events": 0.0,
+        "pct": null,
+        "lo95": null,
+        "hi95": null
+      },
+      {
+        "cohort": "Registry",
+        "outcome": "Remission AT 6 MONTHS - upper bound",
+        "n": 0.0,
+        "events": 0.0,
+        "pct": null,
+        "lo95": null,
+        "hi95": null
+      },
+      {
+        "cohort": "Registry",
+        "outcome": "HbA1c < 7% at 6 months",
+        "n": 805.0,
+        "events": 529.0,
+        "pct": 65.71428571428571,
+        "lo95": 62.367633768883714,
+        "hi95": 68.9116728543053
+      },
+      {
+        "cohort": "Registry",
+        "outcome": "HbA1c < 6.5% at 6 months",
+        "n": 805.0,
+        "events": 366.0,
+        "pct": 45.46583850931677,
+        "lo95": 42.05573164433219,
+        "hi95": 48.91901387545911
+      },
+      {
+        "cohort": "Registry",
+        "outcome": "FBS < 126 mg/dL at 6 months",
+        "n": 791.0,
+        "events": 398.0,
+        "pct": 50.316055625790135,
+        "lo95": 46.8386126757018,
+        "hi95": 53.79044359011231
+      },
+      {
+        "cohort": "Registry",
+        "outcome": "- Drug cessation, last observed",
+        "n": 628.0,
+        "events": 47.0,
+        "pct": 7.484076433121019,
+        "lo95": 5.674609810172961,
+        "hi95": 9.81051821597954
+      },
+      {
+        "cohort": "Registry",
+        "outcome": "- Drug cessation, strict/cost-confirmed",
+        "n": 609.0,
+        "events": 25.0,
+        "pct": 4.105090311986864,
+        "lo95": 2.7958023191425467,
+        "hi95": 5.9897421386855125
+      },
+      {
+        "cohort": "Registry",
+        "outcome": "- Dose reduction, last observed",
+        "n": 0.0,
+        "events": 0.0,
+        "pct": null,
+        "lo95": null,
+        "hi95": null
+      },
+      {
+        "cohort": "Registry",
+        "outcome": "- Remission, last observed",
+        "n": 1285.0,
+        "events": 159.0,
+        "pct": 12.373540856031129,
+        "lo95": 10.6845113047496,
+        "hi95": 14.28686563366632
+      },
+      {
+        "cohort": "Registry",
+        "outcome": "- HbA1c < 7%, last observed",
+        "n": 1285.0,
+        "events": 731.0,
+        "pct": 56.88715953307393,
+        "lo95": 54.16285230189344,
+        "hi95": 59.570411691798775
+      }
+    ],
+    "sites": [
+      {
+        "facility": "รพ.พิมาย",
+        "n": 69.0,
+        "k": 0.0,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.053
+      },
+      {
+        "facility": "รพ.สต.บ้านโล๊ะจังกะ",
+        "n": 14.0,
+        "k": 0.0,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.215
+      },
+      {
+        "facility": "รพ.บางระกำ",
+        "n": 49.0,
+        "k": 1.0,
+        "p": 0.02,
+        "lo": 0.004,
+        "hi": 0.107
+      },
+      {
+        "facility": "รพ.สต.หนองกุงใหญ่",
+        "n": 21.0,
+        "k": 1.0,
+        "p": 0.048,
+        "lo": 0.008,
+        "hi": 0.227
+      },
+      {
+        "facility": "รพ.สต.บ้านฝาง",
+        "n": 15.0,
+        "k": 1.0,
+        "p": 0.067,
+        "lo": 0.012,
+        "hi": 0.298
+      },
+      {
+        "facility": "รพ.สต.ห้วยโจด",
+        "n": 25.0,
+        "k": 2.0,
+        "p": 0.08,
+        "lo": 0.022,
+        "hi": 0.25
+      },
+      {
+        "facility": "รพ.ท่าวุ้ง",
+        "n": 252.0,
+        "k": 26.0,
+        "p": 0.103,
+        "lo": 0.071,
+        "hi": 0.147
+      },
+      {
+        "facility": "รพ.สต.ดูนสาด",
+        "n": 23.0,
+        "k": 3.0,
+        "p": 0.13,
+        "lo": 0.045,
+        "hi": 0.321
+      },
+      {
+        "facility": "รพ.สต.บ้านโนนสัง",
+        "n": 23.0,
+        "k": 4.0,
+        "p": 0.174,
+        "lo": 0.07,
+        "hi": 0.371
+      },
+      {
+        "facility": "รพ.อุ้มผาง",
+        "n": 40.0,
+        "k": 8.0,
+        "p": 0.2,
+        "lo": 0.105,
+        "hi": 0.348
+      },
+      {
+        "facility": "รพ.สต.หัวนาคำ",
+        "n": 24.0,
+        "k": 5.0,
+        "p": 0.208,
+        "lo": 0.092,
+        "hi": 0.405
+      },
+      {
+        "facility": "รพ.สต.บ้านโนนสมบูรณ์",
+        "n": 14.0,
+        "k": 3.0,
+        "p": 0.214,
+        "lo": 0.076,
+        "hi": 0.476
+      },
+      {
+        "facility": "รพ.สต.หูแร่",
+        "n": 27.0,
+        "k": 7.0,
+        "p": 0.259,
+        "lo": 0.132,
+        "hi": 0.447
+      },
+      {
+        "facility": "รพ.สต.ห้วยยาง",
+        "n": 19.0,
+        "k": 5.0,
+        "p": 0.263,
+        "lo": 0.118,
+        "hi": 0.488
+      },
+      {
+        "facility": "รพ.สต.บ้านหนองโอง",
+        "n": 18.0,
+        "k": 5.0,
+        "p": 0.278,
+        "lo": 0.125,
+        "hi": 0.509
+      },
+      {
+        "facility": "รพ.สต.น้ำอ้อม",
+        "n": 24.0,
+        "k": 7.0,
+        "p": 0.292,
+        "lo": 0.149,
+        "hi": 0.492
+      },
+      {
+        "facility": "รพ.สต.หนองโก",
+        "n": 17.0,
+        "k": 5.0,
+        "p": 0.294,
+        "lo": 0.133,
+        "hi": 0.531
+      },
+      {
+        "facility": "PCC คลองศาลา",
+        "n": 16.0,
+        "k": 5.0,
+        "p": 0.312,
+        "lo": 0.142,
+        "hi": 0.556
+      },
+      {
+        "facility": "รพ.สต.บ้านทุ่งใหญ่",
+        "n": 22.0,
+        "k": 8.0,
+        "p": 0.364,
+        "lo": 0.197,
+        "hi": 0.57
+      }
+    ],
+    "models": [
+      {
+        "term": "Age, per 10 years",
+        "OR": 0.7723586478123514,
+        "lo95": 0.5808494787468779,
+        "hi95": 1.0270094106609031,
+        "p": 0.07562498588149916,
+        "model": "A · baseline only"
+      },
+      {
+        "term": "Female (vs male)",
+        "OR": 1.179831519400949,
+        "lo95": 0.8136769334822865,
+        "hi95": 1.7107556536162465,
+        "p": 0.38303356846874137,
+        "model": "A · baseline only"
+      },
+      {
+        "term": "Baseline HbA1c, per 1%",
+        "OR": 0.5995934528714624,
+        "lo95": 0.4177053833204417,
+        "hi95": 0.8606839247999911,
+        "p": 0.005546813908685264,
+        "model": "A · baseline only"
+      },
+      {
+        "term": "Baseline BMI, per 1 kg/m²",
+        "OR": 0.9679963131083043,
+        "lo95": 0.9393596526719542,
+        "hi95": 0.9975059707173711,
+        "p": 0.03375841359213829,
+        "model": "A · baseline only"
+      },
+      {
+        "term": "Baseline FBS, per 10 mg/dL",
+        "OR": 0.9487954972198142,
+        "lo95": 0.8609278003205835,
+        "hi95": 1.0456311147222592,
+        "p": 0.28911639682157897,
+        "model": "A · baseline only"
+      },
+      {
+        "term": "Baseline drug classes, per 1",
+        "OR": 0.2534661151621448,
+        "lo95": 0.13696932798817804,
+        "hi95": 0.46904713981611057,
+        "p": 1.2380146864015695e-05,
+        "model": "A · baseline only"
+      },
+      {
+        "term": "On insulin at baseline",
+        "OR": 1.1500574231205216,
+        "lo95": 0.24628630251387915,
+        "hi95": 5.370303029337489,
+        "p": 0.8588680434464435,
+        "model": "A · baseline only"
+      },
+      {
+        "term": "Age, per 10 years",
+        "OR": 0.7849434356306095,
+        "lo95": 0.5890576282061516,
+        "hi95": 1.0459693035737356,
+        "p": 0.09830470223793596,
+        "model": "B · + 6-month change"
+      },
+      {
+        "term": "Female (vs male)",
+        "OR": 1.2565733924299283,
+        "lo95": 0.882142099990313,
+        "hi95": 1.7899346268364225,
+        "p": 0.20578209163384376,
+        "model": "B · + 6-month change"
+      },
+      {
+        "term": "Baseline HbA1c, per 1%",
+        "OR": 0.5819300641416585,
+        "lo95": 0.3851250081962961,
+        "hi95": 0.8793056600970208,
+        "p": 0.010149685690437895,
+        "model": "B · + 6-month change"
+      },
+      {
+        "term": "Baseline BMI, per 1 kg/m²",
+        "OR": 0.9752467410654125,
+        "lo95": 0.9388437766437983,
+        "hi95": 1.013061203173488,
+        "p": 0.19657075420283399,
+        "model": "B · + 6-month change"
+      },
+      {
+        "term": "Baseline FBS, per 10 mg/dL",
+        "OR": 0.9341800728526636,
+        "lo95": 0.8381692118778028,
+        "hi95": 1.0411888150363584,
+        "p": 0.21851174974856413,
+        "model": "B · + 6-month change"
+      },
+      {
+        "term": "Baseline drug classes, per 1",
+        "OR": 0.21937298639729158,
+        "lo95": 0.10456519849865413,
+        "hi95": 0.46023445517091127,
+        "p": 6.003880005925751e-05,
+        "model": "B · + 6-month change"
+      },
+      {
+        "term": "On insulin at baseline",
+        "OR": 1.233980091040544,
+        "lo95": 0.26172845535011297,
+        "hi95": 5.817888097217063,
+        "p": 0.7904438330678951,
+        "model": "B · + 6-month change"
+      },
+      {
+        "term": "Change in BMI at 6 mo, per 1 kg/m²",
+        "OR": 0.9718133523953487,
+        "lo95": 0.9303334527423972,
+        "hi95": 1.0151426771873695,
+        "p": 0.19890639054576964,
+        "model": "B · + 6-month change"
+      },
+      {
+        "term": "Change in waist at 6 mo, per 1 cm",
+        "OR": 0.9917215422560929,
+        "lo95": 0.9709932213811586,
+        "hi95": 1.0128923618805892,
+        "p": 0.4405028258905639,
+        "model": "B · + 6-month change"
+      }
+    ],
+    "costs": [
+      {
+        "group": "Still on drugs",
+        "n": 581.0,
+        "drug_pre": 830.0,
+        "drug_post": 909.0,
+        "drug_change": 85.0,
+        "lab_pre": 228.0,
+        "lab_post": 259.0,
+        "lab_change": 31.0,
+        "net_change": 116.0
+      },
+      {
+        "group": "Stopped all drugs",
+        "n": 47.0,
+        "drug_pre": 366.0,
+        "drug_post": 97.0,
+        "drug_change": -197.0,
+        "lab_pre": 279.0,
+        "lab_post": 563.0,
+        "lab_change": 275.0,
+        "net_change": 78.0
+      }
+    ],
+    "comparison": [
+      {
+        "measure": "HbA1c",
+        "unit": "%",
+        "anchor": "6 months",
+        "programme": -0.2723577235772358,
+        "n_prog": 861.0,
+        "registry": -0.17332242225859243,
+        "n_reg": 611.0,
+        "difference": -0.09903530131864338,
+        "lo95": -0.24165601362321043,
+        "hi95": 0.04358541098592367,
+        "p": 0.17373361418407351
+      },
+      {
+        "measure": "FBS",
+        "unit": "mg/dL",
+        "anchor": "6 months",
+        "programme": -11.870689655172415,
+        "n_prog": 812.0,
+        "registry": 16.120500782472615,
+        "n_reg": 639.0,
+        "difference": -27.99119043764503,
+        "lo95": -32.82267711250462,
+        "hi95": -23.15970376278544,
+        "p": 1.3518533993940103e-28
+      },
+      {
+        "measure": "BMI",
+        "unit": "kg/m²",
+        "anchor": "6 months",
+        "programme": -0.46952869186727436,
+        "n_prog": 883.0,
+        "registry": -0.5840150462962963,
+        "n_reg": 864.0,
+        "difference": 0.11448635442902194,
+        "lo95": -0.14098780581992254,
+        "hi95": 0.3699605146779664,
+        "p": 0.37989727816591223
+      },
+      {
+        "measure": "Waist",
+        "unit": "cm",
+        "anchor": "6 months",
+        "programme": -2.2541304347826085,
+        "n_prog": 874.0,
+        "registry": -1.6865942028985508,
+        "n_reg": 828.0,
+        "difference": -0.5675362318840578,
+        "lo95": -1.3141544994470569,
+        "hi95": 0.17908203567894132,
+        "p": 0.13644169270177123
+      },
+      {
+        "measure": "HbA1c",
+        "unit": "%",
+        "anchor": "last observed",
+        "programme": -0.4067245119305857,
+        "n_prog": 922.0,
+        "registry": 0.11161963190184049,
+        "n_reg": 815.0,
+        "difference": -0.5183441438324261,
+        "lo95": -0.6713273549558394,
+        "hi95": -0.36536093270901276,
+        "p": 4.161239512175508e-11
+      },
+      {
+        "measure": "FBS",
+        "unit": "mg/dL",
+        "anchor": "last observed",
+        "programme": -15.997668997668997,
+        "n_prog": 858.0,
+        "registry": 23.48720682302772,
+        "n_reg": 938.0,
+        "difference": -39.484875820696715,
+        "lo95": -44.4200508636257,
+        "hi95": -34.54970077776773,
+        "p": 5.0816960236473325e-52
+      }
+    ],
+    "timing": [
+      {
+        "measure": "bmi",
+        "cohort": "program",
+        "measured": 0.0,
+        "labelled": 19.0,
+        "assumed": 871.0,
+        "total": 890.0,
+        "primary (meas.+lab.)": 19.0
+      },
+      {
+        "measure": "bmi",
+        "cohort": "registry",
+        "measured": 905.0,
+        "labelled": 0.0,
+        "assumed": 0.0,
+        "total": 905.0,
+        "primary (meas.+lab.)": 905.0
+      },
+      {
+        "measure": "fbs",
+        "cohort": "program",
+        "measured": 0.0,
+        "labelled": 481.0,
+        "assumed": 337.0,
+        "total": 818.0,
+        "primary (meas.+lab.)": 481.0
+      },
+      {
+        "measure": "fbs",
+        "cohort": "registry",
+        "measured": 791.0,
+        "labelled": 0.0,
+        "assumed": 0.0,
+        "total": 791.0,
+        "primary (meas.+lab.)": 791.0
+      },
+      {
+        "measure": "hba1c",
+        "cohort": "program",
+        "measured": 0.0,
+        "labelled": 16.0,
+        "assumed": 856.0,
+        "total": 872.0,
+        "primary (meas.+lab.)": 16.0
+      },
+      {
+        "measure": "hba1c",
+        "cohort": "registry",
+        "measured": 805.0,
+        "labelled": 0.0,
+        "assumed": 0.0,
+        "total": 805.0,
+        "primary (meas.+lab.)": 805.0
+      },
+      {
+        "measure": "medication",
+        "cohort": "program",
+        "measured": 0.0,
+        "labelled": 16.0,
+        "assumed": 816.0,
+        "total": 832.0,
+        "primary (meas.+lab.)": 16.0
+      },
+      {
+        "measure": "waist",
+        "cohort": "program",
+        "measured": 0.0,
+        "labelled": 18.0,
+        "assumed": 860.0,
+        "total": 878.0,
+        "primary (meas.+lab.)": 18.0
+      },
+      {
+        "measure": "waist",
+        "cohort": "registry",
+        "measured": 901.0,
+        "labelled": 0.0,
+        "assumed": 0.0,
+        "total": 901.0,
+        "primary (meas.+lab.)": 901.0
+      }
+    ],
+    "subgroups": [
+      {
+        "subgroup": "G1 · drug-naive",
+        "n": 114.0,
+        "HbA1c start": 8.33,
+        "ΔHbA1c": -0.85,
+        "HbA1c n": 106.0,
+        "FBS start": 176.17,
+        "ΔFBS": -39.38,
+        "FBS n": 106.0,
+        "BMI start": 27.78,
+        "ΔBMI": -1.81,
+        "BMI n": 112.0,
+        "Waist start": 92.11,
+        "ΔWaist": -6.47,
+        "Waist n": 112.0,
+        "HbA1c<7% @6m": 38.7,
+        "HbA1c<6.5% @6m": 21.7,
+        "Remission @6m": 18.3
+      },
+      {
+        "subgroup": "G2 · on drug, HbA1c ≥6.5",
+        "n": 564.0,
+        "HbA1c start": 8.18,
+        "ΔHbA1c": -0.45,
+        "HbA1c n": 517.0,
+        "FBS start": 157.38,
+        "ΔFBS": -12.01,
+        "FBS n": 454.0,
+        "BMI start": 26.11,
+        "ΔBMI": -0.66,
+        "BMI n": 520.0,
+        "Waist start": 88.19,
+        "ΔWaist": -2.11,
+        "Waist n": 512.0,
+        "HbA1c<7% @6m": 32.3,
+        "HbA1c<6.5% @6m": 15.9,
+        "Remission @6m": 3.8
+      },
+      {
+        "subgroup": "G3 · on drug, HbA1c <6.5",
+        "n": 229.0,
+        "HbA1c start": 6.07,
+        "ΔHbA1c": 0.46,
+        "HbA1c n": 197.0,
+        "FBS start": 126.23,
+        "ΔFBS": 2.41,
+        "FBS n": 203.0,
+        "BMI start": 26.52,
+        "ΔBMI": 0.8,
+        "BMI n": 192.0,
+        "Waist start": 90.02,
+        "ΔWaist": -0.11,
+        "Waist n": 190.0,
+        "HbA1c<7% @6m": 78.7,
+        "HbA1c<6.5% @6m": 58.9,
+        "Remission @6m": 16.1
+      }
+    ],
+    "providers": [
+      {
+        "outcome": "community_hospital",
+        "n": 426.0,
+        "events": 40.0,
+        "pct": 9.389671361502346,
+        "lo95": 6.971368798789427,
+        "hi95": 12.533836457753333,
+        "sites": 5.0
+      },
+      {
+        "outcome": "primary_care",
+        "n": 292.0,
+        "events": 56.0,
+        "pct": 19.17808219178082,
+        "lo95": 15.074210708099159,
+        "hi95": 24.08239002070681,
+        "sites": 15.0
+      }
+    ],
+    "providers_crf": [
+      {
+        "outcome": "community_hospital",
+        "n": 426.0,
+        "events": 40.0,
+        "pct": 9.389671361502346,
+        "lo95": 6.971368798789427,
+        "hi95": 12.533836457753333,
+        "sites": 5.0
+      },
+      {
+        "outcome": "primary_care",
+        "n": 41.0,
+        "events": 7.0,
+        "pct": 17.073170731707318,
+        "lo95": 8.525251977594998,
+        "hi95": 31.262612400404173,
+        "sites": 2.0
+      }
+    ]
+  },
+  "sources": {
+    "changes": {
+      "file": "outputs/tables/table2_paired_change.csv",
+      "sha256": "3d67a2b31ae917ef0eb5b9693d046bd0973339c08d7d78ec9152003667091315"
+    },
+    "outcomes": {
+      "file": "outputs/tables/table4_outcome_rates.csv",
+      "sha256": "258e37743769ff6228e2281406f0d0adb85513a807c087505385763fa72a0dfa"
+    },
+    "sites": {
+      "file": "outputs/tables/table5_cessation_by_site.csv",
+      "sha256": "7749a67853195865056f01260087f8fdbb38cd3964b25cec6dded868c890bac2"
+    },
+    "models": {
+      "file": "outputs/tables/table7_multivariable_gee.csv",
+      "sha256": "eb2ebf9a7d3799039c9e12b6431b8e073e94ee94bb784be5ee48932874b3db1d"
+    },
+    "costs": {
+      "file": "outputs/tables/table14_cost_by_cessation.csv",
+      "sha256": "7719f09b3abdc3758baa869c1fbe675ebfba705ffa8d43bf0ac3cfdd1bbf2530"
+    },
+    "comparison": {
+      "file": "outputs/tables/table16_between_cohort_difference.csv",
+      "sha256": "0a8e3c42cb671acb80485d7979ccba6566653421797dc5e57a84382406637eb9"
+    },
+    "timing": {
+      "file": "outputs/tables/table15_timing_coverage.csv",
+      "sha256": "2898c047902285b67c8862323c04c1870cb9c86357cd0cdf66e4566690476d22"
+    },
+    "subgroups": {
+      "file": "outputs/tables/table19_subgroup_outcomes.csv",
+      "sha256": "d844ef24d1bf7fd010ee8391e0be5628c323d929620a51654360c88cec4be100"
+    },
+    "providers": {
+      "file": "outputs/tables/table17b_cessation_by_provider_level.csv",
+      "sha256": "1b3933ffda6ba87d7825f614d59ff3f9aa56160ad03e945e208d69cd950d1a87"
+    },
+    "providers_crf": {
+      "file": "outputs/tables/table17c_provider_level_within_crf.csv",
+      "sha256": "12b7f26f921a9bafc0b7550a0f338619f5e498222b420464d41c39c93deb5e96"
+    }
+  },
+  "meta": {
+    "title": "DM Remission · Evidence to policy",
+    "notebook": "notebooks/02_analysis_effectiveness.ipynb",
+    "policy": "outputs/reports/(draft) policy recommendation.docx",
+    "status": "Discussion draft",
+    "cohorts": {
+      "programme": 995,
+      "registry": 1461,
+      "survey": 214
+    },
+    "qualitative": {
+      "sites": 9,
+      "participants": 89,
+      "staff": 58,
+      "patients": 31
+    }
+  }
+}
