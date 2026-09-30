@@ -33,6 +33,11 @@ TABLES = {
     'clinical_strata': 'table22_clinical_strata_m6.csv',
     'remission_detail': 'table23_remission_detail_m6.csv',
     'group_metadata': 'table24_presentation_group_metadata.csv',
+    'sender_meta': 'table25_sender_metadata.csv',
+    'sender_outcomes': 'table26_sender_outcomes_m6.csv',
+    'sender_changes': 'table27_sender_clinical_m6.csv',
+    'sender_remission': 'table28_sender_remission_m6.csv',
+    'sender_group_metadata': 'table29_sender_group_metadata.csv',
 }
 
 
@@ -65,6 +70,21 @@ bundle = {'tables': {}, 'sources': {}, 'meta': {
         'subgroup_exclusions': '113 outside the displayed groups or missing baseline data; not all 113 are missing data',
         'insulin_split': 'G2 baseline insulin use: 27 using, 537 not using, 0 missing. Insulin use may include oral medication.',
         'remission': 'Stop dates are unavailable: the HbA1c measurement cannot be verified as at least 3 months after drug cessation. These are joint outcome proxies, not confirmed remission.',
+    },
+    'sender_analysis': {
+        'script': 'scripts/derive_sender_tables.py',
+        'mapping': 'data/case_report/_filename_map.csv',
+        'mapping_sha256': hashlib.sha256((ROOT / 'data/case_report/_filename_map.csv').read_bytes()).hexdigest(),
+        'master': 'data/processed/dmr_master.csv',
+        'master_sha256': hashlib.sha256((ROOT / 'data/processed/dmr_master.csv').read_bytes()).hexdigest(),
+        'grouping': 'The programme master source_file joins to new_filename or original_filename; aggregate by the mapping sender, not facility or source_family.',
+        'scope': 'Programme cohort only, n=995, 21 retained source files, 8 senders; all records mapped. Registry n=1461 and survey n=214 remain excluded.',
+        'interpretation': 'Sender may cover several treating facilities. These are descriptive within-programme comparisons; case mix, completeness and timing differ across senders.',
+        'anchor': 'At 6 months, all timing tiers; same outcome eligibility and complete-pair definitions as the overall slides.',
+        'reconciliation': 'Sender event counts, denominators, group counts and missingness sum to the overall tables. Clinical means and changes reproduce overall estimates when weighted by complete-pair counts.',
+        'small_groups': 'n=0: means, rates and intervals are null. n=1: paired means and change are shown without a confidence interval. n≥2: paired 95% Student t interval. Counts and missingness are always retained.',
+        'rate_intervals': 'Wilson 95% interval. Missing outcomes are excluded from denominators, not imputed as failures.',
+        'remission': 'Joint cessation and HbA1c <6.5% is not confirmed remission: no stop dates establish at least 3 months without medication before HbA1c measurement.',
     },
 }}
 for key, filename in TABLES.items():

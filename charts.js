@@ -1,8 +1,10 @@
 export const C={bg:'#0a0e14',text:'#ffffff',muted:'#d0cfc6',faint:'#9a988f',grid:'#24303d',coral:'#fb8d94',soft:'#51343e',mint:'#96cbb7',gold:'#e8c28d',purple:'#b7a5db',neutral:'#8a93a0',panel:'#101722'};
 export const W=880,H=490;
 export const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
-export const num=(n,d=1)=>Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
-export const signed=(n,d=2)=>(n>0?'+':n<0?'−':'')+num(Math.abs(n),d);
+export const finite=n=>n!==null&&n!==undefined&&n!==''&&Number.isFinite(Number(n));
+export const num=(n,d=1)=>finite(n)?Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}):'—';
+export const signed=(n,d=2)=>finite(n)?(n>0?'+':n<0?'−':'')+num(Math.abs(n),d):'—';
+export const changeCI=r=>finite(r.lo95)&&finite(r.hi95)?`${signed(r.lo95)} ถึง ${signed(r.hi95)}`:'ข้อมูลไม่พอคำนวณ CI';
 export const text=(x,y,s,size=20,fill=C.text,extra='')=>`<text x="${x}" y="${y}" font-size="${size}" fill="${fill}" ${extra}>${esc(s)}</text>`;
 export const rect=(x,y,w,h,fill,r=0,extra='')=>`<rect x="${x}" y="${y}" width="${Math.max(0,w)}" height="${Math.max(0,h)}" rx="${r}" fill="${fill}" ${extra}/>`;
 export const line=(x,y,x2,y2,color=C.grid,extra='')=>`<line x1="${x}" y1="${y}" x2="${x2}" y2="${y2}" stroke="${color}" ${extra}/>`;
@@ -14,6 +16,7 @@ export function svg(body,label){return `<svg xmlns="http://www.w3.org/2000/svg" 
 const centered='text-anchor="middle"';
 const end='text-anchor="end"';
 const bold='font-weight="600"';
+export const noData=(message='ไม่มีคู่ข้อมูลครบสำหรับตัวเลือกนี้')=>text(440,211,'ยังประเมินผลไม่ได้',30,C.muted,centered)+text(440,263,message,20,C.muted,centered)+text(440,313,'ข้อมูลไม่ครบไม่เท่ากับผลลัพธ์เป็นศูนย์',16,C.faint,centered);
 
 export function opening(rate){
  let b='';
@@ -39,6 +42,7 @@ export function cohorts(){
 }
 
 export function waffle(row){
+ if(!row.n||!finite(row.pct))return noData('ไม่มีผู้ที่มีข้อมูลครบตามเกณฑ์ผลลัพธ์ที่เลือก');
  let b='';const pct=row.pct;
  for(let i=0;i<100;i++){const x=65+(i%10)*31,y=69+Math.floor(i/10)*31;const fill=i<Math.floor(pct)?C.coral:C.grid;b+=rect(x,y,22,22,fill,5);if(i===Math.floor(pct))b+=rect(x,y,22*(pct%1),22,C.coral,2);}
  b+=text(451,153,num(pct)+'%',76,C.coral)+text(453,199,`${num(row.events,0)} จาก ${num(row.n,0)} คน`,25)+text(453,240,`95% CI ${num(row.lo95)}–${num(row.hi95)}%`,19,C.muted);
@@ -48,6 +52,7 @@ export function waffle(row){
 }
 
 export function paired(r,label){
+ if(!r.n_pairs||!finite(r.pre_mean)||!finite(r.post_mean))return noData();
  let b='';const lo=Math.min(r.pre_mean,r.post_mean)*.85,hi=Math.max(r.pre_mean,r.post_mean)*1.07;
  const y=v=>347-(v-lo)/(hi-lo)*244;
  for(let i=0;i<5;i++){let v=lo+(hi-lo)*i/4;b+=line(126,y(v),541,y(v))+text(111,y(v)+5,num(v,1),14,C.faint,end);}
@@ -56,7 +61,7 @@ export function paired(r,label){
  b+=text(228,a-27,num(r.pre_mean,2),26,C.text,centered)+text(466,z-27,num(r.post_mean,2),26,C.coral,centered);
  b+=text(228,386,'ก่อนเข้าโครงการ',16,C.muted,centered)+text(466,386,'6 เดือน*',16,C.muted,centered);
  b+=text(628,137,'การเปลี่ยนแปลงเฉลี่ย',16,C.muted)+text(628,207,signed(r.mean_change),51,C.coral)+text(628,246,label==='HbA1c'?'จุดร้อยละ':r.unit,20,C.text);
- b+=text(628,295,'95% CI',14,C.faint)+text(628,327,`${signed(r.lo95)} ถึง ${signed(r.hi95)}`,19,C.muted)+text(628,379,`n = ${num(r.n_pairs,0)} คู่`,19,C.muted);
+ b+=text(628,295,'95% CI',14,C.faint)+text(628,327,changeCI(r),19,C.muted)+text(628,379,`n = ${num(r.n_pairs,0)} คู่`,19,C.muted);
  b+=line(65,425,815,425)+text(65,460,'เปรียบเทียบก่อน–หลังในคนเดิม เฉพาะคู่ข้อมูลที่ครบ',16,C.muted);
  return b;
 }
@@ -68,37 +73,47 @@ export const groups={
  non_insulin:{code:'G2a',label:'G2 · ไม่ใช้ insulin',definition:'G2a: กลุ่ม G2 ที่ไม่ใช้ insulin เมื่อเริ่มโครงการ (537 คน) ยังคงใช้ยาลดน้ำตาลชนิดอื่น ไม่ใช่กลุ่มไม่ใช้ยา'},
  insulin:{code:'G2b',label:'G2 · ใช้ insulin',definition:'G2b: กลุ่ม G2 ที่ใช้ insulin เมื่อเริ่มโครงการ (27 คน) อาจใช้ร่วมกับยาอื่น กลุ่มมีขนาดเล็กจึงควรอ่านช่วงความเชื่อมั่นประกอบ'}
 };
+export function groupDefinition(row){
+ const definition=groups[row.group].definition;
+ return finite(row.n_group)?definition.replace(/\(\d+ คน\)/,`(${num(row.n_group,0)} คน${row.sender?' · '+row.sender:''})`):definition;
+}
 
 export function subgroup(rows){
- let b='';const low=Math.min(0,...rows.map(r=>r.lo95)),high=Math.max(0,...rows.map(r=>r.hi95));
+ let b='';const values=rows.flatMap(r=>[r.mean_change,r.lo95,r.hi95]).filter(finite),low=Math.min(0,...values),high=Math.max(0,...values);
  const span=high-low||1,x=v=>375+(v-low+span*.14)/(span*1.28)*380,zero=x(0),dy=rows.length===4?83:108;
  b+=line(zero,64,zero,392,C.neutral,'stroke-dasharray="4 5"')+text(zero,43,'0',16,C.muted,centered);
  rows.forEach((r,i)=>{
   const y=99+i*dy,v=r.mean_change,co=v<0?C.coral:C.gold,g=groups[r.group];
-  const label=tip(g.definition,text(40,y-12,g.code+' ⓘ',15,co)+text(40,y+16,g.label,16,C.text)+text(40,y+41,`ข้อมูลครบ ${num(r.n_pairs,0)} / ${num(r.n_group,0)} คน`,13,C.muted));
-  const mark=rect(Math.min(x(v),zero),y-16,Math.abs(x(v)-zero),28,co,3,'opacity=".45"')+line(x(r.lo95),y-2,x(r.hi95),y-2,co,'stroke-width="2"')+circle(x(v),y-2,5,co)+text(831,y+5,signed(v),23,co,end);
-  b+=label+tip(`${g.definition}\nเปลี่ยนแปลง ${signed(v)}; 95% CI ${signed(r.lo95)} ถึง ${signed(r.hi95)}\nคู่ข้อมูล ${r.n_pairs} คน`,mark);
+  const definition=groupDefinition(r),label=tip(definition,text(40,y-12,g.code+' ⓘ',15,co)+text(40,y+16,g.label,16,C.text)+text(40,y+41,`ข้อมูลครบ ${num(r.n_pairs,0)} / ${num(r.n_group,0)} คน`,13,C.muted));
+  if(!r.n_pairs||!finite(v)){b+=label+text(720,y+5,r.n_group?'ไม่มีคู่ข้อมูลครบ':'ไม่มีกลุ่มนี้',16,C.muted,end);return;}
+  const ci=finite(r.lo95)&&finite(r.hi95)?line(x(r.lo95),y-2,x(r.hi95),y-2,co,'stroke-width="2"'):'';
+  const mark=rect(Math.min(x(v),zero),y-16,Math.abs(x(v)-zero),28,co,3,'opacity=".45"')+ci+circle(x(v),y-2,5,co)+text(831,y+5,signed(v),23,co,end);
+  b+=label+tip(`${definition}\nเปลี่ยนแปลง ${signed(v)}; 95% CI ${changeCI(r)}\nคู่ข้อมูล ${r.n_pairs} คน`,mark);
  });
  b+=line(40,433,836,433)+text(40,465,'ค่าเฉลี่ยการเปลี่ยนแปลงและ 95% CI · ยังไม่ปรับปัจจัยกวน',15,C.muted);
  return b;
 }
 
 export function clinicalComparison(rows,metric){
- const low=Math.min(...rows.flatMap(r=>[r.pre_mean,r.post_mean])),high=Math.max(...rows.flatMap(r=>[r.pre_mean,r.post_mean]));
+ const values=rows.flatMap(r=>[r.pre_mean,r.post_mean]).filter(finite);
+ if(!values.length)return noData();
+ const low=Math.min(...values),high=Math.max(...values);
  const pad=Math.max((high-low)*.35,high*.035),min=low-pad,max=high+pad,y=v=>278-(v-min)/(max-min)*159;
  let b='';
  rows.forEach((r,i)=>{
   const offset=i*435,co=i?C.mint:C.coral,label=r.group==='gt65'?'HbA1c ตั้งต้น > 6.5%':'HbA1c ตั้งต้น ≤ 6.5%';
   b+=text(offset+230,42,label,23,co,centered)+text(offset+230,74,`คู่ข้อมูล ${num(r.n_pairs,0)} / ${num(r.n_group,0)} คน`,15,C.muted,centered);
+  if(!r.n_pairs){b+=text(offset+230,214,r.n_group?'ไม่มีคู่ข้อมูลครบ':'ไม่มีกลุ่มนี้',20,C.muted,centered);return;}
   for(let j=0;j<4;j++){const value=min+(max-min)*j/3;b+=line(offset+102,y(value),offset+382,y(value))+text(offset+91,y(value)+4,num(value),12,C.faint,end);}
   const a=offset+150,z=offset+331;
   b+=line(a,y(r.pre_mean),z,y(r.post_mean),co,'stroke-width="3"')+circle(a,y(r.pre_mean),7,C.neutral)+circle(z,y(r.post_mean),7,co);
   b+=text(a,y(r.pre_mean)-18,num(r.pre_mean,2),21,C.text,centered)+text(z,y(r.post_mean)-18,num(r.post_mean,2),21,co,centered);
   b+=text(a,313,'ก่อน',16,C.muted,centered)+text(z,313,'6 เดือน*',16,C.muted,centered);
-  b+=text(offset+230,369,signed(r.mean_change),39,co,centered)+text(offset+230,400,`95% CI ${signed(r.lo95)} ถึง ${signed(r.hi95)}`,16,C.muted,centered);
+  b+=text(offset+230,369,signed(r.mean_change),39,co,centered)+text(offset+230,400,`95% CI ${changeCI(r)}`,16,C.muted,centered);
  });
  const unit=metric==='HbA1c'?'จุดร้อยละ':rows[0].unit;
- b+=line(440,95,440,410)+line(42,433,838,433)+text(440,467,`ความต่างของการเปลี่ยนแปลง (> 6.5 − ≤ 6.5): ${signed(rows[0].mean_change-rows[1].mean_change)} ${unit}`,18,C.text,centered);
+ const difference=rows.every(r=>r.n_pairs>0)?`ความต่างของการเปลี่ยนแปลง (> 6.5 − ≤ 6.5): ${signed(rows[0].mean_change-rows[1].mean_change)} ${unit}`:'ยังเทียบความเปลี่ยนแปลงไม่ได้: มีคู่ข้อมูลไม่ครบทั้งสองกลุ่ม';
+ b+=line(440,95,440,410)+line(42,433,838,433)+text(440,467,difference,18,C.text,centered);
  return b;
 }
 

@@ -1,4 +1,4 @@
-import {esc,num,signed,policies,groups} from './charts.js';
+import {esc,num,signed,policies,groups,groupDefinition,finite,changeCI} from './charts.js';
 
 const titles={
  remission:'หยุดยาและ HbA1c ต่ำกว่า 6.5%',
@@ -8,7 +8,7 @@ const titles={
  clinical:'การเปลี่ยนแปลงตัวชี้วัดทางคลินิก',
  subgroups:'ผลลัพธ์จำแนกตามสถานะเริ่มต้น',
  determinants:'ปัจจัยที่สัมพันธ์กับการหยุดยาลดน้ำตาล',
- sites:'ความแตกต่างของผลลัพธ์ระหว่างหน่วยบริการ',
+ sites:'ผลลัพธ์จำแนกตามผู้ส่งข้อมูลและหน่วยบริการ',
  comparison:'การเปรียบเทียบผลลัพธ์ระหว่างกลุ่มข้อมูล',
  provider:'ผลลัพธ์จำแนกตามระดับบริการและแบบบันทึก',
  costs:'การเปลี่ยนแปลงค่ายาและค่าตรวจทางห้องปฏิบัติการ',
@@ -20,7 +20,7 @@ const titles={
 const units={HbA1c:'จุดร้อยละ',FBS:'mg/dL',BMI:'kg/m²',Waist:'cm'};
 const metricLabel={HbA1c:'HbA1c',FBS:'น้ำตาลอดอาหาร',BMI:'BMI',Waist:'รอบเอว'};
 const cohortName={community_hospital:'โรงพยาบาลชุมชน',primary_care:'ปฐมภูมิ'};
-const interval=(row,percentage=false)=>`${num(row.lo95)}–${num(row.hi95)}${percentage?'%':''}`;
+const interval=(row,percentage=false)=>finite(row.lo95)&&finite(row.hi95)?`${num(row.lo95)}–${num(row.hi95)}${percentage?'%':''}`:'—';
 const count=value=>num(value,0);
 const cell=value=>typeof value==='object'?`<button class="linkbtn" data-tip="${esc(value.tip)}" aria-label="${esc(value.tip)}">${esc(value.label)} ⓘ</button>`:esc(value);
 const table=(caption,headers,rows)=>`<table class="endpoint-table"><caption>${esc(caption)}</caption><thead><tr>${headers.map(h=>`<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(row=>`<tr>${row.map((value,index)=>index===0?`<th scope="row">${cell(value)}</th>`:`<td>${cell(value)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
@@ -29,6 +29,9 @@ export const titleFor=id=>titles[id]||'';
 
 export function headlineFor(id,view={},state={}){
  const rows=view.rows||[],r=rows[0]||{};
+ if(['outcomes','remission'].includes(id)&&!r.n)return 'ยังประเมินสัดส่วนไม่ได้: ไม่มีผู้ที่มีข้อมูลครบตามเกณฑ์ผลลัพธ์นี้';
+ if(id==='clinical'&&state.population!=='compare'&&!r.n_pairs)return 'ยังประเมินการเปลี่ยนแปลงไม่ได้: ไม่มีคู่ข้อมูลครบในกลุ่มที่เลือก';
+ if(id==='clinical'&&state.population==='compare'&&rows.some(row=>!row.n_pairs))return 'ข้อมูลคู่ก่อน–หลังมีไม่ครบทั้งสองกลุ่ม จึงยังเปรียบเทียบความเปลี่ยนแปลงไม่ได้';
  switch(id){
   case 'opening':return 'ผลวิเคราะห์โครงการและข้อเสนอเชิงนโยบายเพื่อการดูแลต่อเนื่อง';
   case 'evidence':return 'ข้อมูลผู้ป่วยสามชุดและการสัมภาษณ์ใน 9 พื้นที่ใช้ตอบคำถามที่ต่างกัน';
@@ -42,7 +45,7 @@ export function headlineFor(id,view={},state={}){
   case 'clinical':return state.population==='compare'?`${metricLabel[state.metric]} เปลี่ยน ${signed(r.mean_change)} เทียบกับ ${signed(rows[1].mean_change)} ${units[state.metric]} ในกลุ่ม HbA1c ตั้งต้น > 6.5% และ ≤ 6.5% ตามลำดับ`:`${metricLabel[state.metric]||state.metric} เปลี่ยนแปลงเฉลี่ย ${signed(r.mean_change)} ${units[state.metric]||r.unit} ในผู้มีข้อมูลครบ ${count(r.n_pairs)} คู่${state.population==='gt65'?' · HbA1c ตั้งต้น > 6.5%':state.population==='le65'?' · HbA1c ตั้งต้น ≤ 6.5%':''}`;
   case 'subgroups':return `การเปลี่ยนแปลง ${metricLabel[state.metric]||state.metric} แตกต่างกันตามการใช้ยาและระดับน้ำตาลเริ่มต้น`;
   case 'determinants':return 'HbA1c และจำนวนกลุ่มยาเริ่มต้นสัมพันธ์กับ odds ของการหยุดยา หลังปรับปัจจัยร่วม';
-  case 'sites':return `แสดงผลจาก ${rows.length} หน่วยบริการที่มีผู้เข้าเกณฑ์อย่างน้อย ${state.min||8} คน`;
+  case 'sites':return `แสดงผลจาก ${rows.length} ${state.unit==='sender'?'กลุ่มผู้ส่งข้อมูล (sender)':'สถานบริการ'} ที่มีผู้เข้าเกณฑ์อย่างน้อย ${state.min||8} คน`;
   case 'comparison':return `${state.metric} เปลี่ยนแปลงต่างกัน ${signed(r.difference)} ${units[state.metric]} ระหว่างโครงการกับทะเบียน${state.anchor==='6 months'?'ที่ 6 เดือน':'เมื่อใช้ค่าติดตามล่าสุด'}`;
   case 'provider':return state.sample==='crf'?'เมื่อใช้เฉพาะ CRF ปฐมภูมิเหลือ 41 คนจาก 2 แห่ง; ความต่างยังไม่ชัดเจน':'อัตราหยุดยาดิบของปฐมภูมิสูงกว่า แต่ยังแยกผลของระดับบริการออกจากแบบบันทึกไม่ได้';
   case 'costs':{
@@ -79,15 +82,15 @@ export function summaryTable(id,view={},state={}){
    ['ก่อน',...rows.map(row=>num(row.pre_mean,2))],
    ['6 เดือน',...rows.map(row=>num(row.post_mean,2))],
    ['เปลี่ยนแปลง',...rows.map(row=>signed(row.mean_change))],
-   ['95% CI',...rows.map(row=>`${signed(row.lo95)} ถึง ${signed(row.hi95)}`)]
+   ['95% CI',...rows.map(row=>changeCI(row))]
   ]):table(`ข้อมูลครบ ${count(r.n_pairs)} คู่`,['รายการ',state.metric==='HbA1c'?'ค่า':units[state.metric]],[
    ['ค่าเฉลี่ยก่อน',num(r.pre_mean,2)],
    ['ค่าเฉลี่ย 6 เดือน',num(r.post_mean,2)],
    ['เปลี่ยนแปลงเฉลี่ย',signed(r.mean_change)],
-   ['95% CI ของการเปลี่ยนแปลง',`${signed(r.lo95)} ถึง ${signed(r.hi95)}`]
+   ['95% CI ของการเปลี่ยนแปลง',changeCI(r)]
   ]);
   case 'subgroups':return table(`การเปลี่ยนแปลง ${state.metric} (${units[state.metric]})`,['กลุ่มเริ่มต้น','คู่ข้อมูล','เปลี่ยนแปลง'],rows.map(row=>[
-   {label:`${groups[row.group].code} ${row.group==='non_insulin'?'ไม่ใช้ insulin':row.group==='insulin'?'ใช้ insulin':groups[row.group].label}`,tip:groups[row.group].definition},count(row.n_pairs),signed(row.mean_change)
+   {label:`${groups[row.group].code} ${row.group==='non_insulin'?'ไม่ใช้ insulin':row.group==='insulin'?'ใช้ insulin':groups[row.group].label}`,tip:groupDefinition(row)},count(row.n_pairs),signed(row.mean_change)
   ]));
   case 'determinants':return table(`แบบจำลอง ${state.model||'A'} · ปัจจัยสำคัญ`,['ปัจจัย','aOR (95% CI)'],rows.filter(row=>row.term==='Baseline HbA1c, per 1%'||row.term==='Baseline drug classes, per 1').map(row=>[
    row.term.includes('HbA1c')?'HbA1c / 1 จุดร้อยละ':'จำนวนยา / 1 กลุ่ม',`${num(row.OR,2)} (${num(row.lo95,2)}–${num(row.hi95,2)})`
@@ -96,7 +99,7 @@ export function summaryTable(id,view={},state={}){
    if(!rows.length)return '';
    const rates=rows.map(row=>row.k/row.n*100);
    return table('ขอบเขตข้อมูลที่แสดง',['รายการ','ค่า'],[
-    ['หน่วยบริการ',`${rows.length} แห่ง`],
+    [state.unit==='sender'?'ผู้ส่งข้อมูล (sender)':'สถานบริการ',`${rows.length} แห่ง`],
     ['ขนาดกลุ่มต่อแห่ง',`${count(Math.min(...rows.map(row=>row.n)))}–${count(Math.max(...rows.map(row=>row.n)))} คน`],
     ['ช่วงสัดส่วนดิบ',`${num(Math.min(...rates))}–${num(Math.max(...rates))}%`],
     ['โครงการรวม',`96/718 คน (13.4%)`]
@@ -123,7 +126,7 @@ export function summaryTable(id,view={},state={}){
  }
 }
 
-export function metadataFor(id,view={},state={}){
+function baseMetadataFor(id,view={},state={}){
  const rows=view.rows||[],r=rows[0]||{};
  const base={time:'จุดติดตาม 6 เดือน*',scope:'กลุ่มโครงการ',measure:'ผลลัพธ์ที่สังเกตได้',evidence:'ข้อมูลสังเกตการณ์',discussion:'*เวลาติดตามบางส่วนอนุมานจากแบบบันทึก'};
  switch(id){
@@ -132,9 +135,9 @@ export function metadataFor(id,view={},state={}){
   case 'outcomes':return {...base,scope:`ประเมินผลลัพธ์ได้ ${count(r.n)} คน`,measure:state.outcome==='remission'?'ระยะสงบ: ขอบเขตบน':state.outcome==='control'?'HbA1c < 7%':'หยุดยาลดน้ำตาลทั้งหมด',discussion:state.outcome==='remission'?'ไม่มีวันหยุดยาเพื่อยืนยันช่วงปลอดยา':'ตัวหารเปลี่ยนตามเกณฑ์และความครบถ้วนของข้อมูล'};
   case 'remission':return {...base,scope:`ประเมินร่วมได้ ${count(r.n)} คน`,measure:state.basis==='all_off_drug_proxy'?'ไม่ใช้ยา + HbA1c < 6.5%':'หยุดยา + HbA1c < 6.5%',discussion:'ยังยืนยัน remission ไม่ได้: ไม่มีวันหยุดยาเพื่อยืนยันช่วงปลอดยา ≥ 3 เดือน'};
   case 'clinical':return {...base,scope:state.population==='compare'?`ข้อมูลครบ ${rows.map(row=>count(row.n_pairs)).join(' / ')} คู่`:`ข้อมูลครบ ${count(r.n_pairs)} คู่`,measure:`การเปลี่ยนแปลง ${state.metric}${state.population==='compare'?' ตาม HbA1c ตั้งต้น':''}`,discussion:'เปรียบเทียบก่อน–หลัง ยังไม่ใช่ผลเชิงสาเหตุ'};
-  case 'subgroups':return {...base,scope:'G1–G3 รวม 882 คน · G1 ปรับนิยาม',measure:`การเปลี่ยนแปลง ${state.metric}${state.grouping==='insulin'?' · แยก G2 ตาม insulin':' ตามกลุ่ม'}`,discussion:'อีก 113 คนอยู่นอกกลุ่มหรือข้อมูลไม่ครบ; G1 > 6.5%, G2 ≥ 6.5%, G3 < 6.5%; ยังไม่ปรับปัจจัยกวน'};
+  case 'subgroups':return {...base,scope:`G1–G3 รวม ${count(view.groupTotal)} คน · G1 ปรับนิยาม`,measure:`การเปลี่ยนแปลง ${state.metric}${state.grouping==='insulin'?' · แยก G2 ตาม insulin':' ตามกลุ่ม'}`,discussion:`อีก ${count(view.groupExcluded)} คนอยู่นอกกลุ่มหรือข้อมูลไม่ครบ; G1 > 6.5%, G2 ≥ 6.5%, G3 < 6.5%; ยังไม่ปรับปัจจัยกวน`};
   case 'determinants':return {...base,scope:`แบบจำลอง ${state.model||'A'} · GEE ตามหน่วยบริการ`,measure:'Adjusted odds ratio (aOR)',evidence:'การวิเคราะห์ปรับปัจจัยร่วม',discussion:'aOR ไม่ใช่ risk ratio และไม่ใช่ผลเชิงสาเหตุ'};
-  case 'sites':return {...base,scope:`${rows.length} หน่วยบริการ · n ≥ ${state.min||8}`,measure:'สัดส่วนหยุดยาและ 95% CI',discussion:'ยังใช้จัดอันดับคุณภาพหน่วยบริการไม่ได้'};
+  case 'sites':return {...base,scope:`${rows.length} ${state.unit==='sender'?'sender':'สถานบริการ'} · n ≥ ${state.min||8}`,measure:'สัดส่วนหยุดยาและ 95% CI',discussion:'ยังใช้จัดอันดับคุณภาพหน่วยบริการไม่ได้'};
   case 'comparison':return {...base,time:state.anchor==='6 months'?'จุดติดตาม 6 เดือน* ร่วมกัน':'ค่าติดตามครั้งล่าสุด',scope:'โครงการและทะเบียนหนึ่งโรงพยาบาล',measure:`ความต่างของการเปลี่ยนแปลง ${state.metric}`,discussion:state.anchor==='6 months'?'ยังไม่ปรับปัจจัยกวนระหว่างกลุ่ม':'ช่วงเวลาติดตามต่างกัน; ใช้พิจารณาความไวของข้อสรุป'};
   case 'provider':return {...base,scope:state.sample==='crf'?'เฉพาะแบบ CRF':'ทุกแบบบันทึก',measure:'สัดส่วนหยุดยาแยกระดับบริการ',discussion:'ระดับบริการซ้อนทับกับชนิดแบบบันทึก'};
   case 'costs':return {...base,time:'ก่อน–หลัง · สถานะยาครั้งล่าสุด',scope:`ทะเบียนบ้านตาขุน · ขนาดกลุ่ม ${count(r.n)} คน`,measure:state.view==='paired'?'การเปลี่ยนแปลงแบบจับคู่ · บาท/ครั้ง':'ค่าเฉลี่ยในแต่ละช่วง · บาท/ครั้ง',discussion:state.view==='paired'?'จำนวนคู่ต่างกันตามหมวด; ผลบวกไม่ใช่ต้นทุนรวมบริการ':'ขนาดกลุ่มไม่ใช่จำนวนคู่; หักลบแทน paired change ไม่ได้'};
@@ -144,4 +147,9 @@ export function metadataFor(id,view={},state={}){
   case 'next':return {time:'ลำดับการพัฒนาที่เสนอ',scope:'มาตรฐาน · ระบบบริการ · การขยายผล',measure:'ผลลัพธ์ ความปลอดภัย ต้นทุน และการเข้าถึง',evidence:'ข้อเสนอเพื่อหารือ',discussion:'ลำดับการขับเคลื่อนเป็นข้อเสนอของสไลด์ฉบับร่าง'};
   default:return base;
  }
+}
+
+export function metadataFor(id,view={},state={}){
+ const metadata=baseMetadataFor(id,view,state);
+ return view.scopeLabel?{...metadata,scope:`${view.scopeLabel} · ${metadata.scope}`}:metadata;
 }

@@ -51,6 +51,11 @@ analysis workspace. Source paths in figures identify that workspace's files.
   counts still depend on the selected clinical measure.
 - The outcomes slide links directly to the following joint-outcome slide
   (7.4%), so it can be found without opening the contents menu.
+- Outcomes, joint outcome, clinical change, and subgroup slides have a visible
+  sender selector in every mode. A sender selection carries between these four
+  slides and survives reloads. Other slides explicitly remain overall analyses.
+  The comparison-by-site slide defaults to sender grouping, with a button to
+  return to the original facility grouping.
 - Every slide exports a 2,400-pixel-wide PNG or a vector SVG. Both include the
   current settings, chart title, caveats, source filenames, and embedded Prompt
   fonts. Dark and light export backgrounds are available.
@@ -70,6 +75,7 @@ rebuild the public aggregate bundle:
 
 ```sh
 /path/to/private/DMR/.venv/bin/python scripts/derive_additional_tables.py --analysis-root /path/to/private/DMR
+/path/to/private/DMR/.venv/bin/python scripts/derive_sender_tables.py --analysis-root /path/to/private/DMR
 python3 scripts/build_data.py --analysis-root /path/to/private/DMR
 ```
 
@@ -108,6 +114,23 @@ insulin status within G2. Labels expose definitions by hover, keyboard focus or
 tap. Original notebook subgroup tables remain unchanged; the revised groups
 are recomputed in the extension script and included as new aggregate tables.
 
+Sender breakdowns join the cleaned master's `source_file` to `new_filename`
+(with original-name fallback) in `data/case_report/_filename_map.csv`, then
+use its `sender` column. Ambiguous or unmatched mappings fail the build. The
+995-person programme cohort maps to eight senders; กระนวน includes 13 facilities,
+เพชรบูรณ์ includes PCC คลองศาลา, and หูแร่ uses records retained after deduplication.
+บ้านตาขุน is registry-only and the กระนวน survey is a separate cohort, so neither
+is mixed into the programme sender estimates. The map has nine senders across
+all source cohorts. Only aggregate tables and source hashes enter the website.
+
+All sender results retain the original six-month outcome definitions and
+metric-specific complete-pair denominators. Estimates with no eligible patients
+or no complete pairs are shown as unavailable, never as zero. A single complete
+pair has a descriptive mean change but no confidence interval; two or more
+pairs use the paired t interval. Group tooltip counts and export annotations
+follow the selected sender. The derivation reconciles counts and weighted
+estimates against the original overall results before writing the tables.
+
 Fonts: Prompt Regular, Medium and SemiBold, distributed under the SIL Open Font License
 in `assets/fonts/OFL.txt`. Downloaded from the author's HRH-model site.
 
@@ -122,3 +145,5 @@ in `assets/fonts/OFL.txt`. Downloaded from the author's HRH-model site.
 `scripts/derive_additional_tables.py`: reproduce the clinical strata, revised
 groups, and joint medication/HbA1c outcomes from the private cleaned master;
 validate against published overall notebook results before writing aggregates.
+`scripts/derive_sender_tables.py`: map and aggregate programme results by sender,
+including missing-data accounting and reconciliation with overall results.
