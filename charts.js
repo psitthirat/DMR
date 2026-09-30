@@ -61,13 +61,44 @@ export function paired(r,label){
  return b;
 }
 
-export function subgroup(rows,metric){
- let b='';const key={'HbA1c':'ΔHbA1c','FBS':'ΔFBS','BMI':'ΔBMI','Waist':'ΔWaist'}[metric];const nk={'HbA1c':'HbA1c n','FBS':'FBS n','BMI':'BMI n','Waist':'Waist n'}[metric];
- const max=Math.max(...rows.map(r=>Math.abs(r[key])))*1.15;const x=v=>530+v/max*240;
- b+=line(530,67,530,353,C.neutral,'stroke-dasharray="4 5"')+text(530,43,'0',16,C.muted,centered);
- const labs=[['G1','ยังไม่ใช้ยา'],['G2','ใช้ยา · HbA1c ≥ 6.5%'],['G3','ใช้ยา · HbA1c < 6.5%']];
- rows.forEach((r,i)=>{const y=114+i*101,v=r[key],co=v<0?C.coral:C.gold;b+=text(42,y-3,labs[i][0],13,co)+text(83,y-3,labs[i][1],18,C.text)+text(83,y+25,`ข้อมูลครบ ${num(r[nk],0)} คู่`,14,C.muted);b+=tip(`${labs[i][1]}: ${signed(v)}; n=${r[nk]}`,rect(Math.min(x(v),530),y-20,Math.abs(x(v)-530),35,co,4)+text(x(v)+(v<0?-12:12),y+5,signed(v),22,co,v<0?end:''));});
- b+=text(335,401,'ค่าลดลง',15,C.muted,centered)+text(728,401,'ค่าเพิ่มขึ้น',15,C.muted,centered)+line(43,430,829,430)+text(43,465,'ฐานเริ่มต้นต่างกัน ผลลัพธ์เฉลี่ยจึงตอบโจทย์คนละแบบ',17,C.muted);
+export const groups={
+ g1:{code:'G1',label:'ยังไม่ใช้ยา · HbA1c > 6.5%',definition:'G1: ผู้ป่วยเบาหวานที่ยังไม่ใช้ยาลดน้ำตาลเมื่อเริ่มโครงการ และ HbA1c ตั้งต้น > 6.5% (89 คน) ไม่รวมผู้ที่ HbA1c ≤ 6.5% หรือไม่มีค่าเริ่มต้น'},
+ g2:{code:'G2',label:'ใช้ยา · HbA1c ≥ 6.5%',definition:'G2: ใช้ยาลดน้ำตาลเมื่อเริ่มโครงการ และ HbA1c ตั้งต้น ≥ 6.5% (564 คน) รวมผู้ที่ HbA1c เท่ากับ 6.5% ตามนิยามกลุ่มเดิม'},
+ g3:{code:'G3',label:'ใช้ยา · HbA1c < 6.5%',definition:'G3: ใช้ยาลดน้ำตาลเมื่อเริ่มโครงการ และ HbA1c ตั้งต้น < 6.5% (229 คน) เป็นกลุ่มที่ระดับน้ำตาลต่ำกว่าเกณฑ์ตั้งแต่เริ่มต้น'},
+ non_insulin:{code:'G2a',label:'G2 · ไม่ใช้ insulin',definition:'G2a: กลุ่ม G2 ที่ไม่ใช้ insulin เมื่อเริ่มโครงการ (537 คน) ยังคงใช้ยาลดน้ำตาลชนิดอื่น ไม่ใช่กลุ่มไม่ใช้ยา'},
+ insulin:{code:'G2b',label:'G2 · ใช้ insulin',definition:'G2b: กลุ่ม G2 ที่ใช้ insulin เมื่อเริ่มโครงการ (27 คน) อาจใช้ร่วมกับยาอื่น กลุ่มมีขนาดเล็กจึงควรอ่านช่วงความเชื่อมั่นประกอบ'}
+};
+
+export function subgroup(rows){
+ let b='';const low=Math.min(0,...rows.map(r=>r.lo95)),high=Math.max(0,...rows.map(r=>r.hi95));
+ const span=high-low||1,x=v=>375+(v-low+span*.14)/(span*1.28)*380,zero=x(0),dy=rows.length===4?83:108;
+ b+=line(zero,64,zero,392,C.neutral,'stroke-dasharray="4 5"')+text(zero,43,'0',16,C.muted,centered);
+ rows.forEach((r,i)=>{
+  const y=99+i*dy,v=r.mean_change,co=v<0?C.coral:C.gold,g=groups[r.group];
+  const label=tip(g.definition,text(40,y-12,g.code+' ⓘ',15,co)+text(40,y+16,g.label,16,C.text)+text(40,y+41,`ข้อมูลครบ ${num(r.n_pairs,0)} / ${num(r.n_group,0)} คน`,13,C.muted));
+  const mark=rect(Math.min(x(v),zero),y-16,Math.abs(x(v)-zero),28,co,3,'opacity=".45"')+line(x(r.lo95),y-2,x(r.hi95),y-2,co,'stroke-width="2"')+circle(x(v),y-2,5,co)+text(831,y+5,signed(v),23,co,end);
+  b+=label+tip(`${g.definition}\nเปลี่ยนแปลง ${signed(v)}; 95% CI ${signed(r.lo95)} ถึง ${signed(r.hi95)}\nคู่ข้อมูล ${r.n_pairs} คน`,mark);
+ });
+ b+=line(40,433,836,433)+text(40,465,'ค่าเฉลี่ยการเปลี่ยนแปลงและ 95% CI · ยังไม่ปรับปัจจัยกวน',15,C.muted);
+ return b;
+}
+
+export function clinicalComparison(rows,metric){
+ const low=Math.min(...rows.flatMap(r=>[r.pre_mean,r.post_mean])),high=Math.max(...rows.flatMap(r=>[r.pre_mean,r.post_mean]));
+ const pad=Math.max((high-low)*.35,high*.035),min=low-pad,max=high+pad,y=v=>278-(v-min)/(max-min)*159;
+ let b='';
+ rows.forEach((r,i)=>{
+  const offset=i*435,co=i?C.mint:C.coral,label=r.group==='gt65'?'HbA1c ตั้งต้น > 6.5%':'HbA1c ตั้งต้น ≤ 6.5%';
+  b+=text(offset+230,42,label,23,co,centered)+text(offset+230,74,`คู่ข้อมูล ${num(r.n_pairs,0)} / ${num(r.n_group,0)} คน`,15,C.muted,centered);
+  for(let j=0;j<4;j++){const value=min+(max-min)*j/3;b+=line(offset+102,y(value),offset+382,y(value))+text(offset+91,y(value)+4,num(value),12,C.faint,end);}
+  const a=offset+150,z=offset+331;
+  b+=line(a,y(r.pre_mean),z,y(r.post_mean),co,'stroke-width="3"')+circle(a,y(r.pre_mean),7,C.neutral)+circle(z,y(r.post_mean),7,co);
+  b+=text(a,y(r.pre_mean)-18,num(r.pre_mean,2),21,C.text,centered)+text(z,y(r.post_mean)-18,num(r.post_mean,2),21,co,centered);
+  b+=text(a,313,'ก่อน',16,C.muted,centered)+text(z,313,'6 เดือน*',16,C.muted,centered);
+  b+=text(offset+230,369,signed(r.mean_change),39,co,centered)+text(offset+230,400,`95% CI ${signed(r.lo95)} ถึง ${signed(r.hi95)}`,16,C.muted,centered);
+ });
+ const unit=metric==='HbA1c'?'จุดร้อยละ':rows[0].unit;
+ b+=line(440,95,440,410)+line(42,433,838,433)+text(440,467,`ความต่างของการเปลี่ยนแปลง (> 6.5 − ≤ 6.5): ${signed(rows[0].mean_change-rows[1].mean_change)} ${unit}`,18,C.text,centered);
  return b;
 }
 

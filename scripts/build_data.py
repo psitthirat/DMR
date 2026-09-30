@@ -30,6 +30,9 @@ TABLES = {
     'subgroups': 'table19_subgroup_outcomes.csv',
     'providers': 'table17b_cessation_by_provider_level.csv',
     'providers_crf': 'table17c_provider_level_within_crf.csv',
+    'clinical_strata': 'table22_clinical_strata_m6.csv',
+    'remission_detail': 'table23_remission_detail_m6.csv',
+    'group_metadata': 'table24_presentation_group_metadata.csv',
 }
 
 
@@ -49,6 +52,20 @@ bundle = {'tables': {}, 'sources': {}, 'meta': {
     'status': 'Discussion draft',
     'cohorts': {'programme': 995, 'registry': 1461, 'survey': 214},
     'qualitative': {'sites': 9, 'participants': 89, 'staff': 58, 'patients': 31},
+    'additional_analysis': {
+        'script': 'scripts/derive_additional_tables.py',
+        'cohort': 'Programme cohort, n=995; same cleaned master as the notebook',
+        'anchor': 'At 6 months, all timing tiers; complete pairs for each clinical measure',
+        'clinical_intervals': 'Paired mean change with 95% Student t interval',
+        'rate_intervals': 'Wilson 95% interval; missing outcomes excluded, not imputed',
+        'baseline_hba1c': 'Two strata: >6.5% versus ≤6.5%; 27 missing baseline HbA1c excluded',
+        'g1_revision': 'G1 now requires no baseline glucose-lowering drug AND HbA1c >6.5% (89). Notebook G1 included all 114 drug-naive patients; 21 with HbA1c ≤6.5% and 4 missing are excluded from the revised G1.',
+        'g2': 'On glucose-lowering medication at baseline AND HbA1c ≥6.5% (564)',
+        'g3': 'On glucose-lowering medication at baseline AND HbA1c <6.5% (229)',
+        'subgroup_exclusions': '113 outside the displayed groups or missing baseline data; not all 113 are missing data',
+        'insulin_split': 'G2 baseline insulin use: 27 using, 537 not using, 0 missing. Insulin use may include oral medication.',
+        'remission': 'Stop dates are unavailable: the HbA1c measurement cannot be verified as at least 3 months after drug cessation. These are joint outcome proxies, not confirmed remission.',
+    },
 }}
 for key, filename in TABLES.items():
     path = ROOT / 'outputs' / 'tables' / filename

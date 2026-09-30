@@ -1,6 +1,6 @@
 # DM Remission — interactive policy story
 
-Discussion draft: 14 Thai storytelling slides in a dark pink-coral theme, drawing on
+Discussion draft: 15 Thai storytelling slides in dark and light pink-coral themes, drawing on
 the analysis notebook and `outputs/reports/(draft) policy recommendation.docx`.
 Page geometry, typography and navigation follow the author's HRH-model site:
 the same 68 px header and pill-shaped modes, scrolling reading layout, large
@@ -39,7 +39,9 @@ analysis workspace. Source paths in figures identify that workspace's files.
   fullscreen, E to explore, or the question-mark menu for the contents.
 - Exploration mode exposes each figure's controls and source rows. Return to
   presentation or reading with those selections preserved. The URL preserves
-  the active scene, controls, mode, and export background.
+  the active scene, controls, mode, display theme, and export background.
+- The sun/moon button switches the display theme in all three modes. Downloads
+  follow the display theme by default; the export drawer can override it.
 - Every slide exports a 2,400-pixel-wide PNG or a vector SVG. Both include the
   current settings, chart title, caveats, source filenames, and embedded Prompt
   fonts. Dark and light export backgrounds are available.
@@ -53,9 +55,12 @@ analysis workspace. Source paths in figures identify that workspace's files.
 ## Data and provenance
 
 Rebuild the aggregate bundle after refreshing the notebook output tables in the
-private analysis workspace:
+private analysis workspace. First derive the added clinical strata and joint
+outcome tables using the analysis environment (pandas, NumPy and SciPy), then
+rebuild the public aggregate bundle:
 
 ```sh
+/path/to/private/DMR/.venv/bin/python scripts/derive_additional_tables.py --analysis-root /path/to/private/DMR
 python3 scripts/build_data.py --analysis-root /path/to/private/DMR
 ```
 
@@ -72,6 +77,28 @@ between cessation, the remission upper bound, and HbA1c control. Cost means use
 available observations in each period; paired changes come from the separate
 change columns and cannot be replaced by subtracting the period means.
 
+The additional outcome slide distinguishes **50/680 (7.4%)** who stopped all
+glucose-lowering drugs and had HbA1c <6.5% from the historical **73/790 (9.2%)**
+off-drug proxy, which includes people untreated at baseline. A conditional
+view shows **50/95 (52.6%)** among stoppers with follow-up HbA1c; one of the 96
+stoppers has no follow-up HbA1c. None confirms remission because the cessation
+date needed to verify at least three months off medication is unavailable.
+
+Clinical views retain the overall paired results and add baseline HbA1c
+**>6.5% / ≤6.5%** strata (660/308 patients; 27 missing baseline HbA1c), with
+metric-specific complete pairs and paired t 95% intervals. The comparison uses
+one vertical scale and reports the unadjusted difference in mean changes.
+
+At the author's request, G1 now requires no medication at baseline **and HbA1c
+>6.5%** (89 patients). G2 retains medication use and HbA1c **≥6.5%** (564); G3
+retains medication use and HbA1c **<6.5%** (229). These definitions differ from
+the separate clinical HbA1c strata at exactly 6.5%. The remaining 113 patients
+are outside the displayed definitions or lack classification data. G2 can be
+split into no baseline insulin (537) and baseline insulin (27), with no unknown
+insulin status within G2. Labels expose definitions by hover, keyboard focus or
+tap. Original notebook subgroup tables remain unchanged; the revised groups
+are recomputed in the extension script and included as new aggregate tables.
+
 Fonts: Prompt Regular, Medium and SemiBold, distributed under the SIL Open Font License
 in `assets/fonts/OFL.txt`. Downloaded from the author's HRH-model site.
 
@@ -83,3 +110,6 @@ in `assets/fonts/OFL.txt`. Downloaded from the author's HRH-model site.
 `cover.js`: the cover and its matching downloadable SVG composition.
 `export.js`: self-contained SVG and PNG export with Thai text.
 `scripts/build_data.py`: aggregate data bundle generation.
+`scripts/derive_additional_tables.py`: reproduce the clinical strata, revised
+groups, and joint medication/HbA1c outcomes from the private cleaned master;
+validate against published overall notebook results before writing aggregates.

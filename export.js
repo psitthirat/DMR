@@ -1,5 +1,11 @@
 import {C,esc,W,H,text,rect} from './charts.js';
 
+// Display and downloads share this palette, so adjusted graphs keep the same contrast.
+const lightColors={[C.bg]:'#ffffff',[C.text]:'#202a34',[C.muted]:'#4c5a67',[C.faint]:'#5d6a75',[C.grid]:'#dce2e8',[C.coral]:'#bc4058',[C.soft]:'#ffe4e9',[C.mint]:'#267b65',[C.gold]:'#98631a',[C.purple]:'#7551aa',[C.neutral]:'#657585',[C.panel]:'#f1f4f7'};
+export function themeMarkup(markup,theme){
+ return theme==='light'?markup.replace(/#[0-9a-f]{6}/gi,color=>lightColors[color.toLowerCase()]||color):markup;
+}
+
 let fontsPromise;
 async function fonts(){
  if(!fontsPromise) fontsPromise=Promise.all(['Regular','Medium','SemiBold'].map(async (weight)=>{
@@ -18,12 +24,12 @@ function wrap(value,width,size){
  const result=[];let current='';for(const part of segments){if(current&&ctx.measureText(current+part).width>width){result.push(current.trim());current=part;}else current+=part;}if(current)result.push(current.trim());return result;
 }
 
-export async function exportChart({slide,view,state,source,index,format,theme}){
+export async function exportChart({slide,view,state,source,index,total,format,theme}){
  await document.fonts.ready;const fontCss=await fonts();
  const filters=slide.controls.map(c=>`${c.label}: ${c.type==='checkbox'?(state[c.key]?'แสดง':'ซ่อน'):c.options.find(o=>o[0]===state[c.key])?.[1]}`).join(' · ');
  const top=146;const notes=wrap(view.note,W-84,15);const sourceLines=wrap(slide.foot+' · '+source,W-84,11);const filterLines=wrap(filters||'ภาพรวม',W-84,14);
  const bottom=top+H+20;const height=bottom+filterLines.length*24+notes.length*24+sourceLines.length*19+89;
- let head=text(42,39,'DM REMISSION  /  EVIDENCE TO POLICY',12,C.coral,'letter-spacing="1.5"')+text(W-42,39,`${String(index+1).padStart(2,'0')} / 14 · DRAFT`,12,C.muted,'text-anchor="end"');
+ let head=text(42,39,'DM REMISSION  /  EVIDENCE TO POLICY',12,C.coral,'letter-spacing="1.5"')+text(W-42,39,`${String(index+1).padStart(2,'0')} / ${total} · DRAFT`,12,C.muted,'text-anchor="end"');
  const titleLines=wrap(view.chartTitle,W-84,25);
  titleLines.forEach((t,i)=>head+=text(42,86+i*34,t,25,C.text,'font-weight="600"'));
  let y=bottom,foot='';filterLines.forEach(t=>{foot+=text(42,y,t,14,C.coral);y+=24;});y+=13;
@@ -31,10 +37,7 @@ export async function exportChart({slide,view,state,source,index,format,theme}){
  sourceLines.forEach(t=>{foot+=text(42,y,t,11,C.faint);y+=19;});
  foot+=text(42,height-27,'ฉบับร่างเพื่อหารือ · ภาพตามการตั้งค่าที่เลือก · ข้อมูลสรุปจากเอกสารและตารางวิเคราะห์',10,C.faint);
  let markup=`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${height}" viewBox="0 0 ${W} ${height}"><title>${esc(view.chartTitle)}</title><desc>${esc(view.summary+'. '+view.note)}</desc><defs><style>${fontCss}text{font-family:Prompt,sans-serif}</style></defs>${rect(0,0,W,height,C.bg)}${head}<g transform="translate(0 ${top})">${view.body}</g>${foot}</svg>`;
- if(theme==='light'){
-  const colors={[C.bg]:'#ffffff',[C.text]:'#202a34',[C.muted]:'#4c5a67',[C.faint]:'#5d6a75',[C.grid]:'#e0e4e9',[C.coral]:'#bc4058',[C.soft]:'#ffe4e9',[C.mint]:'#267b65',[C.gold]:'#98631a',[C.purple]:'#7551aa',[C.neutral]:'#84929f',[C.panel]:'#f1f4f7'};
-  markup=markup.replace(/#[0-9a-f]{6}/gi,c=>colors[c.toLowerCase()]||c);
- }
+ markup=themeMarkup(markup,theme);
  const filename=`dmr-${String(index+1).padStart(2,'0')}-${slide.id}-${theme}`;
  const blob=new Blob([markup],{type:'image/svg+xml;charset=utf-8'});
  if(format==='svg'){saveBlob(blob,filename+'.svg');return;}
