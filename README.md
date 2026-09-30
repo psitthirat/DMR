@@ -46,6 +46,11 @@ analysis workspace. Source paths in figures identify that workspace's files.
   presentation modes: overall, compare both baseline HbA1c strata, >6.5%, and
   ≤6.5%. These update the chart, interpretation, URL and downloaded image;
   the same selection appears when opening exploration mode.
+- The subgroup figure also has inline buttons for G1–G3 or splitting G2 by
+  baseline insulin use. G1's 89 patients are stated in the slide text; paired
+  counts still depend on the selected clinical measure.
+- The outcomes slide links directly to the following joint-outcome slide
+  (7.4%), so it can be found without opening the contents menu.
 - Every slide exports a 2,400-pixel-wide PNG or a vector SVG. Both include the
   current settings, chart title, caveats, source filenames, and embedded Prompt
   fonts. Dark and light export backgrounds are available.
