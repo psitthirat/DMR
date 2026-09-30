@@ -27,3 +27,9 @@
 :root[data-theme=light] .titlecard__backdrop:after{background:linear-gradient(90deg,#fffffff0 0%,#ffffffe6 32%,#ffffff90 64%,#ffffff30 100%)}
 .theme-symbol{width:18px;line-height:1;font-size:18px;text-align:center}
 @media(max-width:1100px){.theme-label{display:none}}
+.chart-controls{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:8px 0 12px;flex:none}
+.chart-controls__label{font-size:var(--fs-small);color:var(--text-muted)}
+.chart-controls__options{display:flex;flex-wrap:wrap;gap:6px}
+.chart-controls .btn{min-height:36px;padding:5px 12px}
+.chart-controls .btn[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--text-inverse);font-weight:500}
+@media(max-width:820px){.chart-controls{gap:5px;margin:8px 0}.chart-controls__label{flex-basis:100%}.chart-controls .btn{min-height:40px;padding:5px 10px;font-size:.8rem}}

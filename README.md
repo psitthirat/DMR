@@ -42,6 +42,10 @@ analysis workspace. Source paths in figures identify that workspace's files.
   the active scene, controls, mode, display theme, and export background.
 - The sun/moon button switches the display theme in all three modes. Downloads
   follow the display theme by default; the export drawer can override it.
+- The clinical figure has group buttons directly above it in reading and
+  presentation modes: overall, compare both baseline HbA1c strata, >6.5%, and
+  ≤6.5%. These update the chart, interpretation, URL and downloaded image;
+  the same selection appears when opening exploration mode.
 - Every slide exports a 2,400-pixel-wide PNG or a vector SVG. Both include the
   current settings, chart title, caveats, source filenames, and embedded Prompt
   fonts. Dark and light export backgrounds are available.
