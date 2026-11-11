@@ -26,7 +26,7 @@ export function opening(rate){
  b+=circle(330,226,145,'none',`stroke="${C.coral}" stroke-width="33" stroke-dasharray="${len*rate/100} ${len}" stroke-linecap="round" transform="rotate(-90 330 226)"`);
  b+=text(330,207,num(rate)+'%',68,C.coral,centered)+text(330,245,'หยุดยาลดน้ำตาลได้',20,C.text,centered)+text(330,277,'ที่จุดติดตาม 6 เดือน*',16,C.muted,centered);
  b+=line(483,227,533,227,C.coral)+circle(533,227,3,C.coral);
- b+=text(567,190,'96 / 718',33,C.text)+text(567,224,'คนที่ประเมินการหยุดยาได้',17,C.muted);
+ b+=text(567,190,'97 / 731',33,C.text)+text(567,224,'คนที่ประเมินการหยุดยาได้',17,C.muted);
  b+=text(567,267,'95% CI',13,C.faint)+text(567,299,'11.1–16.1%',25,C.coral);
  b+=line(64,432,816,432)+text(64,466,'หยุดยาได้ ≠ ยืนยันภาวะเบาหวานระยะสงบ',17,C.muted)+text(816,466,'PROGRAMME COHORT',12,C.faint,end);
  return b;
@@ -130,9 +130,9 @@ export function forest(rows,ci){
 export function sites(rows,ci){
  let b='';const x=v=>307+v*725;const dy=365/Math.max(rows.length,1);
  [0,.1,.2,.3,.4,.5,.6].forEach(v=>b+=line(x(v),31,x(v),425)+text(x(v),458,num(v*100,0)+'%',13,C.muted,centered));
- b+=line(x(96/718),30,x(96/718),425,C.coral,'stroke-dasharray="5 5" opacity=".5"');
+ b+=line(x(97/731),30,x(97/731),425,C.coral,'stroke-dasharray="5 5" opacity=".5"');
  b+=text(839,19,'หยุดยา / n',13,C.muted,end);
- rows.forEach((r,i)=>{const y=47+i*dy;const p=r.k/r.n;const co=p>=96/718?C.coral:C.neutral;b+=text(282,y+5,r.facility,15,C.muted,end);if(ci)b+=line(x(r.lo),y,x(r.hi),y,co,'stroke-width="2"');b+=tip(`${r.facility}\n${r.k}/${r.n} คน = ${num(p*100)}%\n95% CI ${num(r.lo*100)}–${num(r.hi*100)}%`,circle(x(p),y,5,co));b+=text(845,y+5,`${r.k} / ${r.n}`,14,C.muted,end);});
+ rows.forEach((r,i)=>{const y=47+i*dy;const p=r.k/r.n;const co=p>=97/731?C.coral:C.neutral;b+=text(282,y+5,r.facility,15,C.muted,end);if(ci)b+=line(x(r.lo),y,x(r.hi),y,co,'stroke-width="2"');b+=tip(`${r.facility}\n${r.k}/${r.n} คน = ${num(p*100)}%\n95% CI ${num(r.lo*100)}–${num(r.hi*100)}%`,circle(x(p),y,5,co));b+=text(845,y+5,`${r.k} / ${r.n}`,14,C.muted,end);});
  return b;
 }
 

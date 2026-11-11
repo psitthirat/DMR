@@ -198,7 +198,11 @@ def main():
     for key in ['events', 'n', 'pct', 'lo95', 'hi95']:
         if not np.isclose(remission[-1][key], old_proxy[key]):
             raise ValueError(f'Historical remission proxy reconciliation failed: {key}')
-    if int(med_eligible.sum()) != 718 or int(stoppers.sum()) != 96:
+    # 2026-11-11 rerun: 718/96 -> 731/97 after reading รพ.สต.หนองโน's
+    # "ยาmfm" column and its "การปรับยา: หยุด" ticks (+17 eligible, +7 stopped),
+    # keeping metformin on in two ท่าวุ้ง "MFM ... off <drug>" regimens (-2), and
+    # treating four รพ.สต. "stops" with a blank baseline-drug cell as unknown (-4/-4).
+    if int(med_eligible.sum()) != 731 or int(stoppers.sum()) != 97:
         raise ValueError('Cessation totals differ from the published analysis.')
 
     tables.mkdir(parents=True, exist_ok=True)

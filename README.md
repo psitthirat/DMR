@@ -50,7 +50,7 @@ analysis workspace. Source paths in figures identify that workspace's files.
   baseline insulin use. G1's 89 patients are stated in the slide text; paired
   counts still depend on the selected clinical measure.
 - The outcomes slide links directly to the following joint-outcome slide
-  (7.4%), so it can be found without opening the contents menu.
+  (7.2%), so it can be found without opening the contents menu.
 - Outcomes, joint outcome, clinical change, and subgroup slides have a visible
   sender selector in every mode. A sender selection carries between these four
   slides and survives reloads. Other slides explicitly remain overall analyses.
@@ -92,10 +92,10 @@ between cessation, the remission upper bound, and HbA1c control. Cost means use
 available observations in each period; paired changes come from the separate
 change columns and cannot be replaced by subtracting the period means.
 
-The additional outcome slide distinguishes **50/680 (7.4%)** who stopped all
-glucose-lowering drugs and had HbA1c <6.5% from the historical **73/790 (9.2%)**
+The additional outcome slide distinguishes **50/692 (7.2%)** who stopped all
+glucose-lowering drugs and had HbA1c <6.5% from the historical **74/803 (9.2%)**
 off-drug proxy, which includes people untreated at baseline. A conditional
-view shows **50/95 (52.6%)** among stoppers with follow-up HbA1c; one of the 96
+view shows **50/96 (52.1%)** among stoppers with follow-up HbA1c; one of the 97
 stoppers has no follow-up HbA1c. None confirms remission because the cessation
 date needed to verify at least three months off medication is unavailable.
 
