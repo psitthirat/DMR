@@ -38,7 +38,7 @@ export function headlineFor(id,view={},state={}){
   case 'outcomes':{
    const value=`${count(r.events)} จาก ${count(r.n)} คน (${num(r.pct)}%)`;
    if(state.outcome==='remission')return `ไม่ใช้ยาและ HbA1c < 6.5% (รวมผู้ไม่ใช้ยาตั้งต้น) ${value} ยังยืนยันช่วงปลอดยาไม่ได้`;
-   if(state.outcome==='control')return `HbA1c ต่ำกว่า 7% ที่จุดติดตาม 6 เดือน: ${value}`;
+   if(state.outcome==='control')return `HbA1c ต่ำกว่า 6.5% ที่จุดติดตาม 6 เดือน: ${value}`;
    return `หยุดยาลดน้ำตาลทั้งหมดที่จุดติดตาม 6 เดือน: ${value}`;
   }
   case 'remission':return state.basis==='among_stoppers'?`ในผู้หยุดยาที่มีผลตรวจ ${num(r.pct)}% มี HbA1c < 6.5% (${count(r.events)}/${count(r.n)} คน)`:state.basis==='all_off_drug_proxy'?`ไม่ใช้ยาและ HbA1c < 6.5%: ${num(r.pct)}% (${count(r.events)}/${count(r.n)} คน) รวมผู้ไม่ใช้ยาตั้งต้น`:`หยุดยาและ HbA1c < 6.5%: ${num(r.pct)}% (${count(r.events)}/${count(r.n)} คนที่ใช้ยาตั้งต้นและติดตามครบ)`;
@@ -132,7 +132,7 @@ function baseMetadataFor(id,view={},state={}){
  switch(id){
   case 'opening':return {...base,time:'6 เดือน* และข้อเสนอระบบบริการ',scope:'โครงการ 995 คน · 20 หน่วยบริการ',measure:'ผลลัพธ์ผู้ป่วยและระบบบริการ',discussion:'ต้นแบบสำหรับการอภิปราย'};
   case 'evidence':return {...base,time:'3 เดือน / 6 เดือน / ข้อมูลสัมภาษณ์',scope:'โครงการ · ทะเบียน · สำรวจ · สัมภาษณ์',measure:'หลักฐานเชิงปริมาณและเชิงคุณภาพ',discussion:'แต่ละชุดมีประชากรและวิธีบันทึกต่างกัน'};
-  case 'outcomes':return {...base,scope:`ประเมินผลลัพธ์ได้ ${count(r.n)} คน`,measure:state.outcome==='remission'?'ไม่ใช้ยาและ HbA1c < 6.5% (นิยามเดิม)':state.outcome==='control'?'HbA1c < 7%':'หยุดยาลดน้ำตาลทั้งหมด',discussion:state.outcome==='remission'?'ไม่มีวันหยุดยาเพื่อยืนยันช่วงปลอดยา':'ตัวหารเปลี่ยนตามเกณฑ์และความครบถ้วนของข้อมูล'};
+  case 'outcomes':return {...base,scope:`ประเมินผลลัพธ์ได้ ${count(r.n)} คน`,measure:state.outcome==='remission'?'ไม่ใช้ยาและ HbA1c < 6.5% (นิยามเดิม)':state.outcome==='control'?'HbA1c < 6.5%':'หยุดยาลดน้ำตาลทั้งหมด',discussion:state.outcome==='remission'?'ไม่มีวันหยุดยาเพื่อยืนยันช่วงปลอดยา':'ตัวหารเปลี่ยนตามเกณฑ์และความครบถ้วนของข้อมูล'};
   case 'remission':return {...base,scope:`ประเมินร่วมได้ ${count(r.n)} คน`,measure:state.basis==='all_off_drug_proxy'?'ไม่ใช้ยา + HbA1c < 6.5%':'หยุดยา + HbA1c < 6.5%',discussion:'ยังยืนยัน remission ไม่ได้: ไม่มีวันหยุดยาเพื่อยืนยันช่วงปลอดยา ≥ 3 เดือน'};
   case 'clinical':return {...base,scope:state.population==='compare'?`ข้อมูลครบ ${rows.map(row=>count(row.n_pairs)).join(' / ')} คู่`:`ข้อมูลครบ ${count(r.n_pairs)} คู่`,measure:`การเปลี่ยนแปลง ${state.metric}${state.population==='compare'?' ตาม HbA1c ตั้งต้น':''}`,discussion:'เปรียบเทียบก่อน–หลัง ยังไม่ใช่ผลเชิงสาเหตุ'};
   case 'subgroups':return {...base,scope:`G1–G3 รวม ${count(view.groupTotal)} คน · G1 ปรับนิยาม`,measure:`การเปลี่ยนแปลง ${state.metric}${state.grouping==='insulin'?' · แยก G2 ตาม insulin':' ตามกลุ่ม'}`,discussion:`อีก ${count(view.groupExcluded)} คนอยู่นอกกลุ่มหรือข้อมูลไม่ครบ; G1 > 6.5%, G2 ≥ 6.5%, G3 < 6.5%; ยังไม่ปรับปัจจัยกวน`};

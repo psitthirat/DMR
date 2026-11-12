@@ -54,7 +54,7 @@
   "outputs/tables/table23_remission_detail_m6.csv": "1c16936d7f2f14b1246a8117425e06a842029ccfdda1798b65d56ed418dfaefb",
   "outputs/tables/table24_presentation_group_metadata.csv": "0d7f176b227a91ef31fb8a65c262c2da52b3d5be3b6133733511ffc0f1265400",
   "outputs/tables/table25_sender_metadata.csv": "03680baddda6953e9fee562bcceb0bea1b7fbdcd64094babad07d5daa774d5ed",
-  "outputs/tables/table26_sender_outcomes_m6.csv": "f56a116e0865452b42063d91fc84bd7559712cc269d047dd7c544b666b438f8f",
+  "outputs/tables/table26_sender_outcomes_m6.csv": "43b113737c1964892a61b50d5daf9959ff8305de925aca635f53e8413e9ecf35",
   "outputs/tables/table27_sender_clinical_m6.csv": "de71eccae113d440402e877410557be602e6fd6596f2b150c9ae8aae13a0c1ca",
   "outputs/tables/table28_sender_remission_m6.csv": "97161cce547f249dff870b9db71a6b028d9f4a30630faf981e1f9e1fa004b455",
   "outputs/tables/table29_sender_group_metadata.csv": "8cad8de2ec4ded8b53a680ace76046f092ff730b5425a8104cbbdd20eef1c95d",
@@ -68,7 +68,7 @@
   "outputs/tables/table7b_model_provider_level.csv": "01013ebd0033357d2623d1b8f1b7bf560831cb302a894483252418d0f2c42b93",
   "outputs/tables/table8_extended_model.csv": "76c569878a685f850b43e8459bfa0aef7ed42ae11f012c48ddae18c02448371b",
   "outputs/tables/table9_sensitivity.csv": "c8af443ef22ff1060d3b7db168a163ae9f0a74cd4ab347c3f5c4ea325751f443",
-  "docs/data/evidence.json": "eb4061af6d6899f854dc416985af5120bd487f1cd4c1bf14aebfee2f89948856"
+  "docs/data/evidence.json": "b58900a76d495eca5d3f36f2874aa2e6f549ce7c9dea0d874d667bc2caaa5754"
  },
  "figures_info_only": {
   "outputs/figures/fig01_baseline_distributions.png": "d457d222230e37baca47c8e174ec98f3eac683921db88c661d06cd20a9cfdf5b",

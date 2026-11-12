@@ -53,9 +53,12 @@ sh tools/install_hooks.sh                   # pre-commit data-safety check, once
 `reproducibility/baseline.json` was recorded on the rama-hpsr Mac (Apple Silicon,
 Python 3.13.2, packages in `requirements.lock.txt`); two runs there were identical
 byte for byte. `reproducibility/baseline_p.sitthirat_20261112.json` is the run on
-the machine that held the data before: 32 of 39 output files match it byte for
-byte; the six model tables (GEE, LMM, sensitivity) and the bundle that hashes them
-differ only in the 13th significant digit (relative difference at most 3.9e-13).
+the machine that held the data before: the run here matched 32 of its 39 output
+files byte for byte; the six model tables (GEE, LMM, sensitivity) and the bundle
+that hashes them differed only in the 13th significant digit (relative difference
+at most 3.9e-13). Since then table26 gained HbA1c < 6.5% rows by sender (12 Nov
+2026, level 3 of report section 7.2), so it and the bundle differ from that older
+baseline by design.
 Multiple imputation is seeded (`np.random.seed(20261112)` in notebook 02).
 Compare two runs number by number with `tools/compare_runs.py`.
 

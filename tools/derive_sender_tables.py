@@ -23,6 +23,7 @@ OUTCOMES = [
     ('drug_stopped_m6', 'Drug cessation AT 6 MONTHS (primary)'),
     ('remission_m6', 'Remission AT 6 MONTHS - upper bound'),
     ('a1c_lt7_m6', 'HbA1c < 7% at 6 months'),
+    ('a1c_lt65_m6', 'HbA1c < 6.5% at 6 months'),
 ]
 
 

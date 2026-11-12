@@ -1969,6 +1969,18 @@
         "n_missing": 29.0
       },
       {
+        "sender": "รพ.กระนวน",
+        "cohort": "Programme",
+        "outcome": "HbA1c < 6.5% at 6 months",
+        "events": 63.0,
+        "n": 299.0,
+        "pct": 21.070234113712374,
+        "lo95": 16.82957350389445,
+        "hi95": 26.04482662821244,
+        "n_population": 328.0,
+        "n_missing": 29.0
+      },
+      {
         "sender": "รพ.ท่าวุ้ง",
         "cohort": "Programme",
         "outcome": "Drug cessation AT 6 MONTHS (primary)",
@@ -2001,6 +2013,18 @@
         "pct": 70.0,
         "lo95": 63.92449572501317,
         "hi95": 75.44534747732447,
+        "n_population": 265.0,
+        "n_missing": 25.0
+      },
+      {
+        "sender": "รพ.ท่าวุ้ง",
+        "cohort": "Programme",
+        "outcome": "HbA1c < 6.5% at 6 months",
+        "events": 111.0,
+        "n": 240.0,
+        "pct": 46.25,
+        "lo95": 40.05074271924588,
+        "hi95": 52.567411680315814,
         "n_population": 265.0,
         "n_missing": 25.0
       },
@@ -2041,6 +2065,18 @@
         "n_missing": 0.0
       },
       {
+        "sender": "รพ.บางระกำ",
+        "cohort": "Programme",
+        "outcome": "HbA1c < 6.5% at 6 months",
+        "events": 6.0,
+        "n": 128.0,
+        "pct": 4.6875,
+        "lo95": 2.1657844171923775,
+        "hi95": 9.849752245094322,
+        "n_population": 128.0,
+        "n_missing": 0.0
+      },
+      {
         "sender": "รพ.พิมาย",
         "cohort": "Programme",
         "outcome": "Drug cessation AT 6 MONTHS (primary)",
@@ -2073,6 +2109,18 @@
         "pct": 41.0,
         "lo95": 31.86731302113651,
         "hi95": 50.79856994658921,
+        "n_population": 100.0,
+        "n_missing": 0.0
+      },
+      {
+        "sender": "รพ.พิมาย",
+        "cohort": "Programme",
+        "outcome": "HbA1c < 6.5% at 6 months",
+        "events": 20.0,
+        "n": 100.0,
+        "pct": 20.0,
+        "lo95": 13.33669333310325,
+        "hi95": 28.88291655931589,
         "n_population": 100.0,
         "n_missing": 0.0
       },
@@ -2113,6 +2161,18 @@
         "n_missing": 0.0
       },
       {
+        "sender": "รพ.สต.บ้านโล๊ะจังกะ",
+        "cohort": "Programme",
+        "outcome": "HbA1c < 6.5% at 6 months",
+        "events": 13.0,
+        "n": 14.0,
+        "pct": 92.85714285714286,
+        "lo95": 68.5312955758489,
+        "hi95": 98.72777847521093,
+        "n_population": 14.0,
+        "n_missing": 0.0
+      },
+      {
         "sender": "รพ.หูแร่",
         "cohort": "Programme",
         "outcome": "Drug cessation AT 6 MONTHS (primary)",
@@ -2145,6 +2205,18 @@
         "pct": 60.0,
         "lo95": 43.5727090128925,
         "hi95": 74.44927114061942,
+        "n_population": 40.0,
+        "n_missing": 5.0
+      },
+      {
+        "sender": "รพ.หูแร่",
+        "cohort": "Programme",
+        "outcome": "HbA1c < 6.5% at 6 months",
+        "events": 16.0,
+        "n": 35.0,
+        "pct": 45.714285714285715,
+        "lo95": 30.46601928840721,
+        "hi95": 61.81027493151624,
         "n_population": 40.0,
         "n_missing": 5.0
       },
@@ -2185,6 +2257,18 @@
         "n_missing": 0.0
       },
       {
+        "sender": "รพ.อุ้มผาง",
+        "cohort": "Programme",
+        "outcome": "HbA1c < 6.5% at 6 months",
+        "events": 18.0,
+        "n": 40.0,
+        "pct": 45.0,
+        "lo95": 30.70530781090492,
+        "hi95": 60.17090820106794,
+        "n_population": 40.0,
+        "n_missing": 0.0
+      },
+      {
         "sender": "รพ.เพชรบูรณ์",
         "cohort": "Programme",
         "outcome": "Drug cessation AT 6 MONTHS (primary)",
@@ -2217,6 +2301,18 @@
         "pct": 31.25,
         "lo95": 14.164643854782039,
         "hi95": 55.59564416525933,
+        "n_population": 80.0,
+        "n_missing": 64.0
+      },
+      {
+        "sender": "รพ.เพชรบูรณ์",
+        "cohort": "Programme",
+        "outcome": "HbA1c < 6.5% at 6 months",
+        "events": 4.0,
+        "n": 16.0,
+        "pct": 25.0,
+        "lo95": 10.182067491213049,
+        "hi95": 49.49831653550877,
         "n_population": 80.0,
         "n_missing": 64.0
       }
@@ -10335,7 +10431,7 @@
     },
     "sender_outcomes": {
       "file": "outputs/tables/table26_sender_outcomes_m6.csv",
-      "sha256": "f56a116e0865452b42063d91fc84bd7559712cc269d047dd7c544b666b438f8f"
+      "sha256": "43b113737c1964892a61b50d5daf9959ff8305de925aca635f53e8413e9ecf35"
     },
     "sender_changes": {
       "file": "outputs/tables/table27_sender_clinical_m6.csv",
