@@ -2,6 +2,8 @@
 __pycache__/
 *.pyc
 .venv/
+.jupyter-data/
+.ipynb_checkpoints/
 node_modules/
 .env
 .env.*
@@ -9,11 +11,24 @@ node_modules/
 test-results/
 playwright-report/
 
-# This is the public presentation repository, not the analysis workspace.
-outputs/
-notebooks/
-data/case_report/
-data/processed/
+# Patient-level data never enters this public repository.
+# data/ is a symlink to ../DMR-data (outside the repository); git cannot follow it.
+/data
+/DMR-data/
+/outputs/
+/reference/
+
+# Data and document formats are never committed. Aggregates are published only
+# through site/data/evidence.json, written by tools/build_data.py.
+*.csv
+*.tsv
 *.xlsx
 *.xls
 *.docx
+*.parquet
+*.feather
+*.dta
+*.sav
+*.rds
+*.dmg
+*.zip

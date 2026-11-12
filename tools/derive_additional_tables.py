@@ -1,11 +1,11 @@
 """Derive aggregate presentation additions from the private analysis master.
 
 Run with the analysis environment (pandas, numpy and scipy are required):
-  .venv/bin/python story/scripts/derive_additional_tables.py
-  python3 story/scripts/build_data.py
+  .venv/bin/python tools/derive_additional_tables.py
+  python3 tools/build_data.py
 
-A standalone clone can pass --analysis-root /path/to/private/DMR. This script
-only writes aggregate CSVs to that workspace's outputs/tables/. It never
+It reads the coded master in data/processed/ (kept outside git) and only
+writes aggregate CSVs to outputs/tables/. It never
 writes individual records to the public website. Existing notebook outputs
 are validated and left unchanged.
 """
@@ -90,7 +90,7 @@ def metadata(data, dimension, group, definition):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--analysis-root', type=Path,
-                        default=Path(__file__).resolve().parents[2])
+                        default=Path(__file__).resolve().parents[1])
     args = parser.parse_args()
     root = args.analysis_root.resolve()
     source = root / 'data' / 'processed' / 'dmr_master.csv'

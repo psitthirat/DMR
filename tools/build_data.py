@@ -1,7 +1,7 @@
 """Create the presentation bundle from aggregate notebook outputs only.
 
-Run in the analysis workspace: python3 story/scripts/build_data.py
-Or from a standalone clone: python3 scripts/build_data.py --analysis-root /path/to/DMR
+Run from the repository root after the analysis: python3 tools/build_data.py
+It reads outputs/tables/ in the repository root and writes docs/data/evidence.json.
 No patient records are copied into the web directory.
 """
 import argparse
@@ -10,15 +10,16 @@ import hashlib
 import json
 from pathlib import Path
 
-SITE = Path(__file__).resolve().parents[1]
+REPO = Path(__file__).resolve().parents[1]
+SITE = REPO / 'docs'
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument('--analysis-root', type=Path, default=SITE.parent,
-                    help='Private analysis workspace containing outputs/tables/')
+parser.add_argument('--analysis-root', type=Path, default=REPO,
+                    help='Analysis root containing outputs/tables/ (default: this repository)')
 args = parser.parse_args()
 ROOT = args.analysis_root.resolve()
 if not (ROOT / 'outputs' / 'tables').is_dir():
-    parser.error('Provide --analysis-root pointing to the private analysis workspace. '
-                 'The public repository contains the generated aggregate bundle only.')
+    parser.error('outputs/tables/ not found: run the analysis first (tools/run_pipeline.sh). '
+                 'Only the generated aggregate bundle is published.')
 TABLES = {
     'changes': 'table2_paired_change.csv',
     'outcomes': 'table4_outcome_rates.csv',

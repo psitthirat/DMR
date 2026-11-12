@@ -6,17 +6,70 @@ Page geometry, typography and navigation follow the author's HRH-model site:
 the same 68 px header and pill-shaped modes, scrolling reading layout, large
 unframed figures, and a presentation evidence ribbon. The UI accent is coral.
 
-## Preview
+## Repository
 
-From this repository's root (the `story/` directory in the private analysis workspace):
+Since 12 Nov 2026 this one repository holds both the analysis and the website,
+so a rerun and its published figures stay in step without syncing two repos.
+
+| Path | Content |
+|---|---|
+| `src/` | ETL and parsers that combine the 24 site workbooks into one coded dataset |
+| `notebooks/` | `01_combine_data` and `02_analysis_effectiveness` (committed without outputs) |
+| `tools/` | pipeline runner, website bundle builders, reproducibility and data-safety checks |
+| `checks/` | one-off aggregate analyses cited in the HSRI report (open questions of 8 Nov, Tha Wung G3, HbA1c < 6.5% by sender) |
+| `reproducibility/` | SHA-256 baselines of inputs and outputs for each machine that reran the analysis |
+| `docs/` | the published website; `docs/data/evidence.json` is the only data it reads |
+| `ANALYSIS.md` | analysis notes: data sources, loaders, definitions and the decisions behind them |
+| `data/` | **not in git**: a symlink to `../DMR-data`, the coded case-report files |
+| `outputs/` | **not in git**: tables, figures and executed notebooks written by a run |
+
+## Data
+
+The analysis uses case-report workbooks submitted by the participating sites
+(ethics approval COA. MURA2026/200, Mahidol University Faculty of Medicine
+Ramathibodi Hospital). They are patient records and are not shared: they stay
+outside this repository with the research team. Identifiers were replaced by
+codes before the analysis moved machines on 12 Nov 2026 (names kept only as a
+courtesy title + code so sex can still be derived; HN, ID and participant codes
+tokenised; phone and address blanked; all other cells unchanged). The key to the
+codes is held separately. Only aggregate tables leave the analysis, through
+`tools/build_data.py` into `docs/data/evidence.json`.
+
+## Reproduce the analysis
+
+With the coded data in `../DMR-data/` (`case_report/` and `corrections/`):
 
 ```sh
-python3 -m http.server 4173 --bind 127.0.0.1
+ln -s ../DMR-data data                      # once per clone; git ignores it
+uv python install 3.13.2
+uv venv --python 3.13.2 .venv
+uv pip install --python .venv/bin/python -r requirements.lock.txt
+python3 tools/check_baseline.py --inputs    # the data files match the baseline
+zsh tools/run_pipeline.sh                   # ETL → notebooks 01, 02 → derive → build_data (~80 s)
+.venv/bin/python tools/check_baseline.py    # expect ALL MATCH
+sh tools/install_hooks.sh                   # pre-commit data-safety check, once per clone
+```
+
+`reproducibility/baseline.json` was recorded on the rama-hpsr Mac (Apple Silicon,
+Python 3.13.2, packages in `requirements.lock.txt`); two runs there were identical
+byte for byte. `reproducibility/baseline_p.sitthirat_20261112.json` is the run on
+the machine that held the data before: 32 of 39 output files match it byte for
+byte; the six model tables (GEE, LMM, sensitivity) and the bundle that hashes them
+differ only in the 13th significant digit (relative difference at most 3.9e-13).
+Multiple imputation is seeded (`np.random.seed(20261112)` in notebook 02).
+Compare two runs number by number with `tools/compare_runs.py`.
+
+## Preview
+
+The website lives in `docs/`. Serve that folder only:
+
+```sh
+python3 -m http.server 4173 --bind 127.0.0.1 --directory docs
 ```
 
 Open **http://localhost:4173**. No build step, npm packages, or external runtime
-requests are required. When working in the private analysis workspace, serve
-only `story/`; its parent contains patient records and should not be the web root.
+requests are required. Never serve the repository root: in a working clone,
+`data/` links to the coded analysis data.
 
 ## Publication
 
@@ -24,11 +77,11 @@ Website: <https://psitthirat.github.io/DMR/>
 
 Repository: <https://github.com/psitthirat/DMR>
 
-GitHub Pages publishes the root of the `main` branch. `.nojekyll` keeps the
-static files unchanged. Pushes to `main` update the website automatically.
-This repository contains the presentation and aggregate data only; the source
-notebooks, patient records, and policy Word document remain in the private
-analysis workspace. Source paths in figures identify that workspace's files.
+GitHub Pages publishes only `docs/` from the `main` branch; pushes update the website.
+Every commit passes `tools/precommit_check.py` (git pre-commit hook). GitHub Actions
+templates that rerun the check and deploy `docs/` are in `tools/ci/`, not yet active. No patient
+records are in this repository: data stay outside it, and only aggregate tables
+reach `docs/data/evidence.json`. Source paths in figures name the analysis files.
 
 ## Interaction
 
@@ -68,18 +121,18 @@ analysis workspace. Source paths in figures identify that workspace's files.
 
 ## Data and provenance
 
-Rebuild the aggregate bundle after refreshing the notebook output tables in the
-private analysis workspace. First derive the added clinical strata and joint
-outcome tables using the analysis environment (pandas, NumPy and SciPy), then
-rebuild the public aggregate bundle:
+Rebuild the aggregate bundle after refreshing the notebook output tables in
+`outputs/tables/`. First derive the added clinical strata and joint outcome
+tables using the analysis environment (pandas, NumPy and SciPy), then rebuild
+the public aggregate bundle:
 
 ```sh
-/path/to/private/DMR/.venv/bin/python scripts/derive_additional_tables.py --analysis-root /path/to/private/DMR
-/path/to/private/DMR/.venv/bin/python scripts/derive_sender_tables.py --analysis-root /path/to/private/DMR
-python3 scripts/build_data.py --analysis-root /path/to/private/DMR
+.venv/bin/python tools/derive_additional_tables.py
+.venv/bin/python tools/derive_sender_tables.py
+python3 tools/build_data.py
 ```
 
-`data/evidence.json` records source table paths and SHA-256 hashes. No patient
+`docs/data/evidence.json` records source table paths and SHA-256 hashes. No patient
 records are copied into this directory. Cohort counts and qualitative context
 are transcribed from the notebook, repository README, and policy draft, and
 should be reviewed when those sources change. Narrative text, policy summaries,
@@ -136,14 +189,21 @@ in `assets/fonts/OFL.txt`. Downloaded from the author's HRH-model site.
 
 ## Files
 
+Website (`docs/`):
 `index.html`, `styles.css`, `app.js`: layout, navigation, controls, source dialog.
 `slides.js`, `charts.js`: narrative and SVG figures.
 `presentation.js`: current-result headlines, summary tables and evidence metadata.
 `cover.js`: the cover and its matching downloadable SVG composition.
 `export.js`: self-contained SVG and PNG export with Thai text.
-`scripts/build_data.py`: aggregate data bundle generation.
-`scripts/derive_additional_tables.py`: reproduce the clinical strata, revised
+`data/evidence.json`: the aggregate bundle the site reads.
+
+Tools (`tools/`):
+`build_data.py`: aggregate data bundle generation.
+`derive_additional_tables.py`: reproduce the clinical strata, revised
 groups, and joint medication/HbA1c outcomes from the private cleaned master;
 validate against published overall notebook results before writing aggregates.
-`scripts/derive_sender_tables.py`: map and aggregate programme results by sender,
+`derive_sender_tables.py`: map and aggregate programme results by sender,
 including missing-data accounting and reconciliation with overall results.
+`precommit_check.py`: blocks data files, data folders, notebooks with outputs and
+bare 13-digit numbers; runs as a git pre-commit hook (`sh tools/install_hooks.sh`)
+and, once `tools/ci/` is enabled, in GitHub Actions before every publish.

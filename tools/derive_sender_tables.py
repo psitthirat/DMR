@@ -1,10 +1,9 @@
 """Derive aggregate programme outcomes by the sender in the private filename map.
 
-  .venv/bin/python story/scripts/derive_sender_tables.py
-  python3 story/scripts/build_data.py
+  .venv/bin/python tools/derive_sender_tables.py
+  python3 tools/build_data.py
 
-Pass --analysis-root /path/to/private/DMR from a standalone website clone.
-The input master remains private. Only aggregate tables are written; neither
+The input master (data/processed/, kept outside git) remains private. Only aggregate tables are written; neither
 patient identifiers nor source filenames are included in the web bundle.
 Sender is a submission/network grouping, not a reassignment of the treating
 facility. All measures retain the notebook's 6-month anchor and timing tiers.
@@ -214,7 +213,7 @@ def validate_totals(prog, tables, outputs):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--analysis-root', type=Path, default=Path(__file__).resolve().parents[2])
+    parser.add_argument('--analysis-root', type=Path, default=Path(__file__).resolve().parents[1])
     args = parser.parse_args()
     root = args.analysis_root.resolve()
     tables = root / 'outputs' / 'tables'

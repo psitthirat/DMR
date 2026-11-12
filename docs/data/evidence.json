@@ -519,106 +519,106 @@
     "models": [
       {
         "term": "Age, per 10 years",
-        "OR": 0.7787036738654449,
-        "lo95": 0.5697047227614767,
-        "hi95": 1.064374907675497,
-        "p": 0.11671992969380994,
+        "OR": 0.7787036738654447,
+        "lo95": 0.5697047227614798,
+        "hi95": 1.0643749076754903,
+        "p": 0.11671992969380267,
         "model": "A · baseline only"
       },
       {
         "term": "Female (vs male)",
-        "OR": 1.3394904135037002,
-        "lo95": 0.9144882579511079,
-        "hi95": 1.9620094104742902,
-        "p": 0.13337258981294076,
+        "OR": 1.3394904135037007,
+        "lo95": 0.9144882579511083,
+        "hi95": 1.9620094104742907,
+        "p": 0.13337258981294015,
         "model": "A · baseline only"
       },
       {
         "term": "Baseline HbA1c, per 1%",
-        "OR": 0.6002075591677913,
-        "lo95": 0.41590805230532724,
-        "hi95": 0.8661748963150417,
-        "p": 0.006379303048399438,
+        "OR": 0.6002075591677912,
+        "lo95": 0.41590805230532546,
+        "hi95": 0.866174896315045,
+        "p": 0.006379303048399993,
         "model": "A · baseline only"
       },
       {
         "term": "Baseline BMI, per 1 kg/m²",
         "OR": 0.9738339085062845,
-        "lo95": 0.9473684878617754,
-        "hi95": 1.0010386597268734,
-        "p": 0.059279190460753646,
+        "lo95": 0.9473684878617756,
+        "hi95": 1.0010386597268732,
+        "p": 0.059279190460750045,
         "model": "A · baseline only"
       },
       {
         "term": "Baseline FBS, per 10 mg/dL",
-        "OR": 0.9571946904863278,
-        "lo95": 0.8693075163956743,
-        "hi95": 1.0539672764984918,
-        "p": 0.37330066412671303,
+        "OR": 0.9571946904863277,
+        "lo95": 0.8693075163956738,
+        "hi95": 1.0539672764984922,
+        "p": 0.3733006641267138,
         "model": "A · baseline only"
       },
       {
         "term": "Baseline drug classes, per 1",
         "OR": 0.1847970619911986,
-        "lo95": 0.1006819863646566,
-        "hi95": 0.3391863366391319,
-        "p": 5.053076687992305e-08,
+        "lo95": 0.1006819863646574,
+        "hi95": 0.3391863366391292,
+        "p": 5.0530766879903407e-08,
         "model": "A · baseline only"
       },
       {
         "term": "Age, per 10 years",
-        "OR": 0.7895963548440996,
-        "lo95": 0.5733917566603551,
-        "hi95": 1.0873236253244452,
-        "p": 0.14786416902258975,
+        "OR": 0.7895963548441001,
+        "lo95": 0.573391756660358,
+        "hi95": 1.0873236253244407,
+        "p": 0.1478641690225848,
         "model": "B · + 6-month change"
       },
       {
         "term": "Female (vs male)",
-        "OR": 1.4602483795471526,
-        "lo95": 0.9546066153946334,
-        "hi95": 2.233721509554576,
-        "p": 0.08085344097816981,
+        "OR": 1.4602483795471515,
+        "lo95": 0.9546066153946321,
+        "hi95": 2.2337215095545755,
+        "p": 0.0808534409781709,
         "model": "B · + 6-month change"
       },
       {
         "term": "Baseline HbA1c, per 1%",
-        "OR": 0.5830242994158811,
-        "lo95": 0.3860468147699209,
-        "hi95": 0.8805080645775185,
-        "p": 0.010319079324769387,
+        "OR": 0.5830242994158819,
+        "lo95": 0.38604681476992225,
+        "hi95": 0.880508064577518,
+        "p": 0.010319079324769222,
         "model": "B · + 6-month change"
       },
       {
         "term": "Baseline BMI, per 1 kg/m²",
         "OR": 0.9831385373076694,
-        "lo95": 0.9495053076552534,
-        "hi95": 1.0179631180012352,
-        "p": 0.3383134196223283,
+        "lo95": 0.9495053076552545,
+        "hi95": 1.0179631180012338,
+        "p": 0.33831341962231254,
         "model": "B · + 6-month change"
       },
       {
         "term": "Baseline FBS, per 10 mg/dL",
-        "OR": 0.9435888058131443,
-        "lo95": 0.8479939077313016,
-        "hi95": 1.0499601781785421,
-        "p": 0.2866863184293046,
+        "OR": 0.9435888058131442,
+        "lo95": 0.8479939077313008,
+        "hi95": 1.0499601781785428,
+        "p": 0.2866863184293065,
         "model": "B · + 6-month change"
       },
       {
         "term": "Baseline drug classes, per 1",
-        "OR": 0.1463335302444636,
-        "lo95": 0.06975668920705967,
-        "hi95": 0.30697417433682056,
-        "p": 3.690940347008559e-07,
+        "OR": 0.14633353024446352,
+        "lo95": 0.06975668920706,
+        "hi95": 0.3069741743368188,
+        "p": 3.690940347007798e-07,
         "model": "B · + 6-month change"
       },
       {
         "term": "Change in BMI at 6 mo, per 1 kg/m²",
         "OR": 0.9789699624866152,
-        "lo95": 0.9413144675314333,
+        "lo95": 0.9413144675314332,
         "hi95": 1.018131793899196,
-        "p": 0.2882109371332402,
+        "p": 0.28821093713323975,
         "model": "B · + 6-month change"
       },
       {
@@ -626,7 +626,7 @@
         "OR": 0.9879754650789445,
         "lo95": 0.9659595883775294,
         "hi95": 1.0104931213918091,
-        "p": 0.2927432313221413,
+        "p": 0.29274323132213986,
         "model": "B · + 6-month change"
       }
     ],
@@ -10291,7 +10291,7 @@
     },
     "models": {
       "file": "outputs/tables/table7_multivariable_gee.csv",
-      "sha256": "f2e425095921982616bfc2dc86a6d1f33ed460abedebc86619447d93c02b7a2e"
+      "sha256": "79dc1efbf875b24b1a02633a1426ebf1d82caecd812599fe86b9b3a93a5d98f0"
     },
     "costs": {
       "file": "outputs/tables/table14_cost_by_cessation.csv",
@@ -10383,9 +10383,9 @@
     "sender_analysis": {
       "script": "scripts/derive_sender_tables.py",
       "mapping": "data/case_report/_filename_map.csv",
-      "mapping_sha256": "98bf9d194f86a077e3f96f9c3aaaf644253685dd5429fe2bd2781ce7061a4ee3",
+      "mapping_sha256": "bb293ea2fcd5abd98d80cd6b66fe9e9a0a6d0a24386ab381563f3d55023d1800",
       "master": "data/processed/dmr_master.csv",
-      "master_sha256": "350b77a5e5a5dea31a30027fc64fda4e714cc317923ba449880e862524f3d8a1",
+      "master_sha256": "282596a211fb3200f04a5cf2b45b05e1d3c46b8888e4c82c6f238bb19d016130",
       "grouping": "The programme master source_file joins to new_filename or original_filename; aggregate by the mapping sender, not facility or source_family.",
       "scope": "Programme cohort only, n=995, 21 retained source files, 8 senders; all records mapped. Registry n=1461 and survey n=214 remain excluded.",
       "interpretation": "Sender may cover several treating facilities. These are descriptive within-programme comparisons; case mix, completeness and timing differ across senders.",
