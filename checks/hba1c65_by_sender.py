@@ -8,6 +8,7 @@ Usage: .venv/bin/python -B checks/hba1c65_by_sender.py [--analysis-root ROOT]
 """
 import argparse
 import sys
+from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 
 import pandas as pd
@@ -60,8 +61,13 @@ print('table4 registry: <7%', int(reg4.loc['HbA1c < 7% at 6 months', 'events']),
       int(reg4.loc['HbA1c < 6.5% at 6 months', 'events']), '/', int(reg4.loc['HbA1c < 6.5% at 6 months', 'n']))
 
 pd.set_option('display.width', 250)
+def r1(x):
+    """One decimal, halves rounded up as in the report (111/240 = 46.25 -> 46.3)."""
+    return str(Decimal(repr(x)).quantize(Decimal('0.1'), rounding=ROUND_HALF_UP))
+
+
 for r in table.itertuples():
-    print(f"{r.sender} | <6.5%: {r.lt65_events}/{r.lt65_n} = {r.lt65_pct:.1f}% "
-          f"({r.lt65_lo95:.1f}–{r.lt65_hi95:.1f}) | <7%: {r.lt7_events}/{r.lt7_n} = {r.lt7_pct:.1f}% "
-          f"({r.lt7_lo95:.1f}–{r.lt7_hi95:.1f})")
+    print(f"{r.sender} | <6.5%: {r.lt65_events}/{r.lt65_n} = {r1(r.lt65_pct)}% "
+          f"({r1(r.lt65_lo95)}–{r1(r.lt65_hi95)}) | <7%: {r.lt7_events}/{r.lt7_n} = {r1(r.lt7_pct)}% "
+          f"({r1(r.lt7_lo95)}–{r1(r.lt7_hi95)})")
 print('checks passed: total 251/872 and 399/872; <7% by sender equals table26; sender <6.5% sums to 251')
