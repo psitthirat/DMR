@@ -1,6 +1,5 @@
 name: Publish site
 
-# Template, not active: to use, move to .github/workflows/ and set Pages to GitHub Actions.
 # Publishes only docs/ to GitHub Pages, after the data-safety check passes.
 on:
   push:

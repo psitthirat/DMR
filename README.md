@@ -80,9 +80,10 @@ Website: <https://psitthirat.github.io/DMR/>
 
 Repository: <https://github.com/psitthirat/DMR>
 
-GitHub Pages publishes only `docs/` from the `main` branch; pushes update the website.
-Every commit passes `tools/precommit_check.py` (git pre-commit hook). GitHub Actions
-templates that rerun the check and deploy `docs/` are in `tools/ci/`, not yet active. No patient
+GitHub Actions (`.github/workflows/pages.yml`) publishes only `docs/` to GitHub
+Pages on every push to `main`, after `tools/precommit_check.py` passes again on
+GitHub; `check.yml` runs the same check on other branches and pull requests.
+Every commit also passes the check locally as a git pre-commit hook. No patient
 records are in this repository: data stay outside it, and only aggregate tables
 reach `docs/data/evidence.json`. Source paths in figures name the analysis files.
 
@@ -209,4 +210,4 @@ validate against published overall notebook results before writing aggregates.
 including missing-data accounting and reconciliation with overall results.
 `precommit_check.py`: blocks data files, data folders, notebooks with outputs and
 bare 13-digit numbers; runs as a git pre-commit hook (`sh tools/install_hooks.sh`)
-and, once `tools/ci/` is enabled, in GitHub Actions before every publish.
+and in GitHub Actions before every publish.

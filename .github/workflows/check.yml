@@ -1,6 +1,5 @@
 name: Data-safety check
 
-# Template, not active: to use, move to .github/workflows/.
 # Runs the same check as the local pre-commit hook on branches and pull requests.
 on:
   push:
