@@ -1,5 +1,8 @@
 # Tha Wung G3 by medication status at 6 months, 2026-11-11
 
+
+> **Update 13 Nov 2026.** G3 is now medication use and baseline HbA1c **≤ 6.5%** (it was < 6.5%), the same split at exactly 6.5% as the clinical strata. Re-running `python checks/thawung_g3_by_cessation.py .` gives: G3 256, Tha Wung G3 181; Tha Wung G3 HbA1c change +0.50 (+0.37 to +0.64, 143 pairs) on drug vs +0.16 (−0.04 to +0.36, 21 pairs) stopped, difference −0.34 (−0.58 to −0.11); BMI +1.72 vs +1.61; fewer drug classes +0.70 (28 pairs) vs same or more +0.45 (115), difference +0.25 (−0.19 to +0.69); G3 elsewhere +0.60 on drug vs +0.06 stopped. The conclusions below still hold; the numbers below are the 11 Nov run.
+
 Work behind "ผลรันเพิ่ม ท่าวุ้ง G3" in section 7 of the vault note
 `01 Project/01 Research/DMR/DMR Open Questions from Repo 2026-11-08.md`
 (Percy chose option ข on 11 Nov 20:11).

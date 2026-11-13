@@ -94,15 +94,15 @@ def group_masks(data):
     le = data.hba1c_pre.le(6.5)
     untreated = data.on_any_pre.eq(0)
     g1 = untreated & gt
-    g2 = data.on_any_pre.eq(1) & data.hba1c_pre.ge(6.5)
-    g3 = data.on_any_pre.eq(1) & data.hba1c_pre.lt(6.5)
+    g2 = data.on_any_pre.eq(1) & data.hba1c_pre.gt(6.5)  # exactly 6.5 belongs to G3 (Percy, 13 Nov 2026)
+    g3 = data.on_any_pre.eq(1) & data.hba1c_pre.le(6.5)
     clinical = [
         ('overall', 'all', pd.Series(True, index=data.index), 'Programme cohort'),
         ('baseline_hba1c', 'gt65', gt, 'Baseline HbA1c > 6.5%'),
         ('baseline_hba1c', 'le65', le, 'Baseline HbA1c ≤ 6.5%'),
         ('subgroup', 'g1', g1, 'No glucose-lowering drug at baseline AND baseline HbA1c > 6.5%'),
-        ('subgroup', 'g2', g2, 'On glucose-lowering medication at baseline AND baseline HbA1c ≥ 6.5%'),
-        ('subgroup', 'g3', g3, 'On glucose-lowering medication at baseline AND baseline HbA1c < 6.5%'),
+        ('subgroup', 'g2', g2, 'On glucose-lowering medication at baseline AND baseline HbA1c > 6.5%'),
+        ('subgroup', 'g3', g3, 'On glucose-lowering medication at baseline AND baseline HbA1c ≤ 6.5%'),
         ('g2_insulin', 'insulin', g2 & data.on_insulin_pre.eq(1), 'G2 using insulin at baseline, with or without oral medication'),
         ('g2_insulin', 'non_insulin', g2 & data.on_insulin_pre.eq(0), 'G2 not using insulin at baseline'),
     ]

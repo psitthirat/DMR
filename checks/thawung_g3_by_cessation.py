@@ -3,7 +3,7 @@
 Reads the DMR analysis root after the 2026-11-11 rerun; writes nothing there.
 Reuses the repo's own definitions so the numbers reconcile with the report:
   - sender      = derive_sender_tables.assign_senders (private filename map)
-  - G3          = derive_sender_tables.group_masks (on drug at baseline AND HbA1c < 6.5%)
+  - G3          = derive_sender_tables.group_masks (on drug at baseline AND HbA1c ≤ 6.5%; < 6.5% before 13 Nov 2026)
   - stopped     = drug_stop_m6_eligible & drug_stopped_m6 == 1 (the report's cessation
                   indicator; insulin and other glucose-lowering drugs count as drug use)
   - on drug     = drug_stop_m6_eligible & drug_stopped_m6 == 0
@@ -174,7 +174,7 @@ d = prog[tw & ~prog.g3]
 print(f"  Tha Wung non-G3 total: n {len(d)}")
 show("ALL Tha Wung non-G3", d)
 med = d[d.on_any_pre.eq(1)]
-print(f"  baseline on drug (G2 or HbA1c missing): n {len(med)}; G2 {cnt(med.hba1c_pre.ge(6.5).sum())},"
+print(f"  baseline on drug (G2 or HbA1c missing): n {len(med)}; G2 {cnt(med.hba1c_pre.gt(6.5).sum())},"
       f" baseline HbA1c missing {cnt(med.hba1c_pre.isna().sum())};"
       f" cessation {fmt_rate(int(med.drug_stopped_m6.eq(1).sum()), int(med.drug_stop_m6_eligible.eq(True).sum()))}")
 for k, v in split_status(med).items():

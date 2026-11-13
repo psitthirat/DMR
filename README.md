@@ -58,7 +58,10 @@ files byte for byte; the six model tables (GEE, LMM, sensitivity) and the bundle
 that hashes them differed only in the 13th significant digit (relative difference
 at most 3.9e-13). Since then table26 gained HbA1c < 6.5% rows by sender (12 Nov
 2026, level 3 of report section 7.2), so it and the bundle differ from that older
-baseline by design.
+baseline by design. On 13 Nov 2026 G2/G3 moved to the >6.5% / ≤6.5% split
+(27 patients on medication with baseline HbA1c exactly 6.5% moved from G2 to
+G3), which changed tables 18–22, 24, 27 and 29; `baseline.json` was re-recorded
+after that run.
 Multiple imputation is seeded (`np.random.seed(20261112)` in notebook 02).
 Compare two runs number by number with `tools/compare_runs.py`.
 
@@ -162,11 +165,12 @@ metric-specific complete pairs and paired t 95% intervals. The comparison uses
 one vertical scale and reports the unadjusted difference in mean changes.
 
 At the author's request, G1 now requires no medication at baseline **and HbA1c
->6.5%** (89 patients). G2 retains medication use and HbA1c **≥6.5%** (564); G3
-retains medication use and HbA1c **<6.5%** (229). These definitions differ from
-the separate clinical HbA1c strata at exactly 6.5%. The remaining 113 patients
+>6.5%** (89 patients). G2 is medication use and HbA1c **>6.5%** (537); G3 is
+medication use and HbA1c **≤6.5%** (256), the same split at exactly 6.5% as the
+clinical HbA1c strata (author's decision, 13 Nov 2026; before that, exactly 6.5%
+belonged to G2: 564 and 229). The remaining 113 patients
 are outside the displayed definitions or lack classification data. G2 can be
-split into no baseline insulin (537) and baseline insulin (27), with no unknown
+split into no baseline insulin (511) and baseline insulin (26), with no unknown
 insulin status within G2. Labels expose definitions by hover, keyboard focus or
 tap. Original notebook subgroup tables remain unchanged; the revised groups
 are recomputed in the extension script and included as new aggregate tables.

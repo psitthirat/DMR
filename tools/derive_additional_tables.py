@@ -117,16 +117,16 @@ def main():
     baseline_gt = prog.hba1c_pre.gt(6.5)
     baseline_le = prog.hba1c_pre.le(6.5)
     # G1 is intentionally revised for this presentation at the user's request.
-    # G2/G3 retain the notebook boundaries; exactly 6.5 belongs to G2.
+    # G2/G3 split at 6.5 like the baseline strata: exactly 6.5 belongs to G3 (Percy, 13 Nov 2026).
     g1 = prog.on_any_pre.eq(0) & baseline_gt
-    g2 = prog.on_any_pre.eq(1) & prog.hba1c_pre.ge(6.5)
-    g3 = prog.on_any_pre.eq(1) & prog.hba1c_pre.lt(6.5)
+    g2 = prog.on_any_pre.eq(1) & prog.hba1c_pre.gt(6.5)
+    g3 = prog.on_any_pre.eq(1) & prog.hba1c_pre.le(6.5)
     groups = [
         ('baseline_hba1c', 'gt65', baseline_gt, 'Baseline HbA1c > 6.5%'),
         ('baseline_hba1c', 'le65', baseline_le, 'Baseline HbA1c ≤ 6.5%'),
         ('subgroup', 'g1', g1, 'No glucose-lowering drug at baseline AND baseline HbA1c > 6.5%'),
-        ('subgroup', 'g2', g2, 'On glucose-lowering medication at baseline AND baseline HbA1c ≥ 6.5%'),
-        ('subgroup', 'g3', g3, 'On glucose-lowering medication at baseline AND baseline HbA1c < 6.5%'),
+        ('subgroup', 'g2', g2, 'On glucose-lowering medication at baseline AND baseline HbA1c > 6.5%'),
+        ('subgroup', 'g3', g3, 'On glucose-lowering medication at baseline AND baseline HbA1c ≤ 6.5%'),
         ('g2_insulin', 'insulin', g2 & prog.on_insulin_pre.eq(1), 'G2 using insulin at baseline, with or without oral medication'),
         ('g2_insulin', 'non_insulin', g2 & prog.on_insulin_pre.eq(0), 'G2 not using insulin at baseline'),
     ]

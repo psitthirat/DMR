@@ -66,10 +66,10 @@ bundle = {'tables': {}, 'sources': {}, 'meta': {
         'rate_intervals': 'Wilson 95% interval; missing outcomes excluded, not imputed',
         'baseline_hba1c': 'Two strata: >6.5% versus ≤6.5%; 27 missing baseline HbA1c excluded',
         'g1_revision': 'G1 now requires no baseline glucose-lowering drug AND HbA1c >6.5% (89). Notebook G1 included all 114 drug-naive patients; 21 with HbA1c ≤6.5% and 4 missing are excluded from the revised G1.',
-        'g2': 'On glucose-lowering medication at baseline AND HbA1c ≥6.5% (564)',
-        'g3': 'On glucose-lowering medication at baseline AND HbA1c <6.5% (229)',
+        'g2': 'On glucose-lowering medication at baseline AND HbA1c >6.5% (537)',
+        'g3': 'On glucose-lowering medication at baseline AND HbA1c ≤6.5% (256)',
         'subgroup_exclusions': '113 outside the displayed groups or missing baseline data; not all 113 are missing data',
-        'insulin_split': 'G2 baseline insulin use: 27 using, 537 not using, 0 missing. Insulin use may include oral medication.',
+        'insulin_split': 'G2 baseline insulin use: 26 using, 511 not using, 0 missing. Insulin use may include oral medication.',
         'remission': 'Stop dates are unavailable: the HbA1c measurement cannot be verified as at least 3 months after drug cessation. These are joint outcome proxies, not confirmed remission.',
     },
     'sender_analysis': {
