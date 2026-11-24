@@ -55,8 +55,11 @@ Python 3.13.2, packages in `requirements.lock.txt`); two runs there were identic
 byte for byte. `reproducibility/baseline_p.sitthirat_20261112.json` is the run on
 the machine that held the data before: the run here matched 32 of its 39 output
 files byte for byte; the six model tables (GEE, LMM, sensitivity) and the bundle
-that hashes them differed only in the 13th significant digit (relative difference
-at most 3.9e-13). Since then table26 gained HbA1c < 6.5% rows by sender (12 Nov
+that hashes them differed only by floating-point rounding. Compared number by
+number on 24 Nov 2026 (386 numeric cells in tables 6, 7, 7b, 9, 10 and 12), the
+largest absolute difference was 1.3e-13 and the largest relative difference
+1.6e-12 (an LMM coefficient of about 1e-4); every value agrees to 6 decimal
+places. Since then table26 gained HbA1c < 6.5% rows by sender (12 Nov
 2026, level 3 of report section 7.2), so it and the bundle differ from that older
 baseline by design. On 13 Nov 2026 G2/G3 moved to the >6.5% / ≤6.5% split
 (27 patients on medication with baseline HbA1c exactly 6.5% moved from G2 to
